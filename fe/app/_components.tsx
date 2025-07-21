@@ -8,6 +8,38 @@ import {
 } from "./_utils";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import Link from "next/link";
+
+// Navigation Component
+export const Navigation = () => {
+  return (
+    <nav className="bg-white shadow-sm border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link href="/" className="text-xl font-bold text-gray-900">
+              Escrow App
+            </Link>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Escrow
+            </Link>
+            <Link
+              href="/wallet"
+              className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Wallet
+            </Link>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 const ApproveArbiterUI = ({
   contractAddress,
@@ -77,16 +109,10 @@ const ApproveArbiterUI = ({
 export const Escrow = () => {
   const provider = getProvider();
   const [account, setAccount] = useState<string | null>(null);
-  const [beneficiary, setBeneficiary] = useState<string>(
-    "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199"
-  );
-  const [arbiter, setArbiter] = useState<string>(
-    "0xcd3B766CCDd6AE721141F452C550Ca635964ce71"
-  );
+  const [beneficiary, setBeneficiary] = useState<string>("");
+  const [arbiter, setArbiter] = useState<string>("");
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
-  const [contractAddress, setContractAddress] = useState<string>(
-    "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9"
-  );
+  const [contractAddress, setContractAddress] = useState<string>("");
 
   const [deployedContract, setDeployedContract] =
     useState<ethers.Contract | null>(null);
