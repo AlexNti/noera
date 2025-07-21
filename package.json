@@ -1,0 +1,24 @@
+{
+  "name": "escrow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx hardhat node",
+    "compile": "npx hardhat compile",
+    "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts",
+    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "dotenv": "^17.2.0",
+    "hardhat": "^2.25.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.3.0"
+  }
+}
