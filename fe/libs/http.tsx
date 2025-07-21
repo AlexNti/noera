@@ -12,7 +12,7 @@ export type ApiErrorResponse = {
   data: null;
   status: number;
   ok: boolean;
-  error: { message: string; stack?: string };
+  error: { message: string; code: number; stack?: string };
 };
 
 export type ApiSuccessOrError<T> = ApiResponse<T> | ApiErrorResponse;
