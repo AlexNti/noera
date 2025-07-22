@@ -4,7 +4,7 @@ import { useState, useEffect, use } from "react";
 import { getProvider } from "@/app/_utils";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { getNFTs, getToken, refreshMetadata } from "@/app/_actions";
+import { getNFTs, getToken } from "@/app/_actions";
 
 const getCookie = (name: string): string | null => {
   if (typeof document === "undefined") return null;
@@ -316,7 +316,7 @@ export function NFTs({ nfts }: { nfts: ReturnType<typeof getNFTs> }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-4">
+      <h2 className="text-lg font-semibold mb-4 text-black">
         NFT Collection ({data.totalCount || data.ownedNfts.length})
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -412,20 +412,6 @@ export function NFTs({ nfts }: { nfts: ReturnType<typeof getNFTs> }) {
                   {nft.description}
                 </p>
               )}
-
-              {/* Sync Metadata Button */}
-              <form
-                action={async () => {
-                  await refreshMetadata({
-                    contractAddress: nft.contract.address,
-                    tokenId: nft.tokenId,
-                  });
-                }}
-              >
-                <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium py-2 px-3 rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200">
-                  🔄 Sync Metadata
-                </button>
-              </form>
             </div>
           </div>
         ))}
