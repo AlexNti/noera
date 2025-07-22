@@ -4,7 +4,7 @@ import { useState, useEffect, use } from "react";
 import { getProvider } from "@/app/_utils";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { getToken } from "../_actions";
+import { getNFTs, getToken, refreshMetadata } from "@/app/_actions";
 
 const getCookie = (name: string): string | null => {
   if (typeof document === "undefined") return null;
@@ -292,4 +292,144 @@ export function TokenBalance({
       )}
     </Link>
   ));
+}
+
+export function NFTs({ nfts }: { nfts: ReturnType<typeof getNFTs> }) {
+  const { data, error } = use(nfts);
+
+  if (error !== null) {
+    const errorMessage =
+      typeof error === "string" ? error : error.message || "Unknown error";
+    return (
+      <div className="mt-4 text-center text-red-600">Error: {errorMessage}</div>
+    );
+  }
+
+  if (!data.ownedNfts || data.ownedNfts.length === 0) {
+    return (
+      <div className="mt-4 text-center">
+        <h2 className="text-lg font-semibold mb-1">NFT Collection</h2>
+        <div className="text-gray-500 text-sm">No NFTs found</div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="text-lg font-semibold mb-4">
+        NFT Collection ({data.totalCount || data.ownedNfts.length})
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {data.ownedNfts.map((nft) => (
+          <div
+            key={`${nft.contract?.address || "unknown"}-${
+              nft.tokenId || "unknown"
+            }`}
+            className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-200 p-4 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer group"
+          >
+            {/* NFT Image Container */}
+            <div className="relative mb-3">
+              {nft.image?.cachedUrl ? (
+                <img
+                  src={nft.image.cachedUrl}
+                  alt={nft.name || `NFT #${nft.tokenId}`}
+                  className="w-full h-32 object-cover rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.nextElementSibling?.classList.remove(
+                      "hidden"
+                    );
+                  }}
+                />
+              ) : null}
+              <div
+                className={`w-full h-32 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center ${
+                  nft.image?.cachedUrl ? "hidden" : ""
+                }`}
+              >
+                <svg
+                  className="w-12 h-12 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+
+              {/* Token ID Badge */}
+              <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+                #{nft.tokenId || "Unknown"}
+              </div>
+            </div>
+
+            {/* NFT Info */}
+            <div className="space-y-2">
+              <h3 className="font-bold text-gray-900 text-sm truncate">
+                {nft.name ||
+                  `${nft.contract?.name || "Unknown"} #${
+                    nft.tokenId || "Unknown"
+                  }`}
+              </h3>
+
+              <div className="flex items-center justify-between text-xs text-gray-600">
+                <span>{nft.contract?.name || "Unknown Contract"}</span>
+                <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-medium">
+                  {nft.tokenType || "Unknown"}
+                </span>
+              </div>
+
+              {/* Attributes */}
+              {nft.raw?.metadata?.attributes &&
+                nft.raw.metadata.attributes.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {nft.raw.metadata.attributes
+                      .slice(0, 3)
+                      .map((attr, index) => (
+                        <span
+                          key={index}
+                          className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full"
+                        >
+                          {attr.trait_type}: {attr.value}
+                        </span>
+                      ))}
+                    {nft.raw.metadata.attributes.length > 3 && (
+                      <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
+                        +{nft.raw.metadata.attributes.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                )}
+
+              {/* Description */}
+              {nft.description && (
+                <p className="text-xs text-gray-600 line-clamp-2 mt-2">
+                  {nft.description}
+                </p>
+              )}
+
+              {/* Sync Metadata Button */}
+              <form
+                action={async () => {
+                  await refreshMetadata({
+                    contractAddress: nft.contract.address,
+                    tokenId: nft.tokenId,
+                  });
+                }}
+              >
+                <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium py-2 px-3 rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200">
+                  🔄 Sync Metadata
+                </button>
+              </form>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

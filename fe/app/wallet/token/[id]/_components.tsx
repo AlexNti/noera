@@ -12,7 +12,6 @@ export const TokenTransactions = ({
   walletAddress: string;
 }) => {
   const { data, error } = use(transfers);
-  console.log(data);
 
   if (error) {
     return (

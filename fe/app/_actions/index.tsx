@@ -4,9 +4,10 @@ import {
   TokenBalanceResponse,
   TokenMetadataResponse,
   TokenTransactionsResponse,
+  NFTResponse,
 } from "./types";
 import { formatUnits } from "ethers";
-import { http, buildUrl } from "@/libs/http";
+import { http, buildUrl, buildNFTUrl } from "@/libs/http";
 
 const API_KEY = process.env.ALCHEMY_API_KEY;
 
@@ -269,4 +270,30 @@ export async function fetchNativeTransfers({
       data: null,
     };
   }
+}
+
+export async function getNFTs({ walletAddress }: { walletAddress: string }) {
+  const url = buildNFTUrl(`/${API_KEY}/getNFTsForOwner`, {
+    owner: walletAddress,
+  });
+
+  return http.get<NFTResponse>(url);
+}
+
+export async function refreshMetadata({
+  contractAddress,
+  tokenId,
+}: {
+  contractAddress: string;
+  tokenId: string;
+}) {
+  const url = buildNFTUrl(`/${API_KEY}/refreshNftMetadata`);
+
+  return http.post<{
+    status: string;
+    estimatedMsToRefresh: string;
+  }>(url, {
+    contractAddress,
+    tokenId,
+  });
 }

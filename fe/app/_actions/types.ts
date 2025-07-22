@@ -57,3 +57,52 @@ type ERC1155Metadata = {
   tokenId: string;
   value: string;
 };
+
+export interface NFTResponse {
+  ownedNfts: NFT[];
+  totalCount: number;
+  validAt: {
+    blockNumber: number;
+    blockHash: string;
+    blockTimestamp: string;
+  };
+}
+
+export interface NFT {
+  contract: {
+    address: string;
+    name: string;
+    symbol: string;
+    totalSupply?: string;
+    tokenType: "ERC721" | "ERC1155";
+    contractDeployer: string;
+    deployedBlockNumber: number;
+    spamClassifications: string[];
+  };
+  tokenId: string;
+  tokenType: "ERC721" | "ERC1155";
+  name?: string;
+  description?: string;
+  image?: {
+    cachedUrl?: string;
+    thumbnailUrl?: string;
+    pngUrl?: string;
+    contentType?: string;
+    size?: number;
+    originalUrl?: string;
+  };
+  raw: {
+    tokenUri: string;
+    metadata?: {
+      name?: string;
+      description?: string;
+      image?: string;
+      attributes?: Array<{
+        trait_type: string;
+        value: string;
+      }>;
+    };
+  };
+  tokenUri: string;
+  timeLastUpdated: string;
+}

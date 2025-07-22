@@ -1,14 +1,14 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-export default buildModule("FranekTataNFT", (m) => {
-  const franekTataNFT = m.contract("FranekTataNFT");
+export default buildModule("FranekosKokosNFT", (m) => {
+  const franekBaboNFT = m.contract("FranekosKokosNFT");
 
   const deployer = m.getAccount(0);
 
-  m.call(franekTataNFT, "safeMint", [
+  m.call(franekBaboNFT, "safeMint", [
     deployer,
-    "ipfs://QmVu4M6Jz9d4gJiDEQ1UjgDFWocsWLEkCiHYuJj5dWcX9d",
+    "https://tomato-fashionable-chipmunk-694.mypinata.cloud/ipfs/bafkreiggojskp6doarvhlg2wxm5z7ry6wjui6j3o2vwosvqd55hd7j7lyu",
   ]);
 
-  return { franekTataNFT };
+  return { franekBaboNFT };
 });

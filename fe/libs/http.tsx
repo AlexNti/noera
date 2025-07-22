@@ -47,6 +47,24 @@ export function buildUrl(
   return url.toString();
 }
 
+export function buildNFTUrl(
+  endpoint: string,
+  params?: Record<string, string | number | boolean>
+): string {
+  const fullUrl = `${API_BASE_URL}/nft/v3${endpoint}`;
+  const url = new URL(fullUrl);
+
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        url.searchParams.append(key, String(value));
+      }
+    });
+  }
+
+  return url.toString();
+}
+
 async function apiRequest<T>(
   url: string,
   requestConfig?: RequestConfig
@@ -99,6 +117,12 @@ async function apiRequest<T>(
 }
 
 export const http = Object.freeze({
+  async get<T>(
+    url: string,
+    { cache, next }: { cache?: CacheOptions; next?: NextOptions } = {}
+  ): Promise<ApiSuccessOrError<T>> {
+    return apiRequest<T>(url, { cache, next });
+  },
   async post<T, D = unknown>(
     url: string,
     data: D,

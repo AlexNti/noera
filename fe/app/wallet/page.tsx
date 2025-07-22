@@ -1,5 +1,5 @@
-import { ConnectWallet, TokenBalance } from "./_components";
-import { getToken } from "../_actions";
+import { ConnectWallet, NFTs, TokenBalance } from "@/app/wallet/_components";
+import { getNFTs, getToken } from "@/app/_actions";
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 
@@ -8,11 +8,12 @@ export default async function Wallet() {
   const walletAddress =
     cookieStore.get("escrow_sing_user_address")?.value || "";
   const token = getToken({ walletAddress });
+  const nfts = getNFTs({ walletAddress });
 
   //TODO FETCH ALL TOKENS AND ITERATE IN THEIR BALANCES.
   //TODO ADD AUTHENTICATION E.X CLERK.
   //TODO CREATE WALLET SHOULD HAPPEN AS EARLY AS POSSIBLE MAYBE PART OF THE AUTHENTICATION PROCESS.
-  //TODO EACH USER THAT DEPPOLYS A CONTRACT WE NEED TO SAVE THEM SOMEWHERE SO WE CAN RETRIEVE THEM AN SEE THEIR PROHGRESS (WE CAN USE USERMETDATA OF CLERK) Or custom postgress this can simplify the escrow componetns
+  //TODO EACH USER THAT DEPPOLYS A CONTRACT WE NEED TO SAVE THEM SOMEWHERE SO WE CAN RETRIEVE THEM AN SEE THEIR PROHGRESS (WE CAN USE USERMETDATA OF CLERK) Or custom postgres this can simplify the escrow componetns
   //TODO ALLOW USERS TO CREATE THEIR OWN TOKENS.
 
   return (
@@ -24,6 +25,7 @@ export default async function Wallet() {
           </h1>
           <ConnectWallet />
           {walletAddress && <TokenBalance token={token} />}
+          {walletAddress && <NFTs nfts={nfts} />}
         </div>
       </div>
     </Suspense>
