@@ -8,7 +8,9 @@
     "start": "npx hardhat node",
     "compile": "npx hardhat compile",
     "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts",
-    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia"
+    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia",
+    "nft-deploy": "npx hardhat ignition deploy ignition/modules/nft-deploy.ts --network sepolia",
+    "upload-ipfs": "npx ts-node ipfs/upload.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,9 +18,15 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
     "dotenv": "^17.2.0",
-    "hardhat": "^2.25.0"
+    "hardhat": "^2.25.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.3.0"
+    "@helia/dag-json": "^2.0.0",
+    "@openzeppelin/contracts": "^5.3.0",
+    "helia": "^2.0.0",
+    "ipfs-http-client": "^60.0.1",
+    "multiformats": "^13.0.0"
   }
 }
