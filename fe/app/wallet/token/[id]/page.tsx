@@ -1,6 +1,6 @@
 import { getAssetTransfers, fetchNativeTransfers } from "@/app/_actions";
 import { cookies } from "next/headers";
-import { TokenTransactions } from "./_components";
+import { TokenTransactions, GovernanceChecker, Send } from "./_components";
 import { Suspense } from "react";
 
 export default async function TokenPage({
@@ -23,8 +23,25 @@ export default async function TokenPage({
         });
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TokenTransactions transfers={transfers} walletAddress={address} />
-    </Suspense>
+    <div className="space-y-6">
+      {/* Governance Checker - only show for non-native tokens */}
+      {id !== "native" && (
+        <Suspense fallback={<div>Loading governance...</div>}>
+          <GovernanceChecker tokenAddress={id} walletAddress={address} />
+        </Suspense>
+      )}
+
+      {/* Send Button - only show for non-native tokens */}
+      {id !== "native" && (
+        <Suspense fallback={<div>Loading send...</div>}>
+          <Send tokenAddress={id} />
+        </Suspense>
+      )}
+
+      {/* Token Transactions */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <TokenTransactions transfers={transfers} walletAddress={address} />
+      </Suspense>
+    </div>
   );
 }

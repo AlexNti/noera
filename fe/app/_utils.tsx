@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import Escrow from "@/contracts/artifacts/contracts/Escrow.sol/Escrow.json";
+import GovernanceToken from "@/contracts/artifacts/contracts/GovernanceToken.sol/GovernanceToken.json";
 
 let provider: ethers.BrowserProvider | null = null;
 
@@ -67,4 +68,47 @@ export const getContractBalance = async ({
   const balance = await provider.getBalance(contractAddress);
 
   return Number(ethers.formatEther(balance));
+};
+
+export const delegateVotingPower = async ({
+  tokenAddress,
+  walletAddress,
+}: {
+  tokenAddress: string;
+  walletAddress: string;
+}) => {
+  const provider = getProvider();
+  if (!provider) throw new Error("Provider not found");
+  const signer = await provider.getSigner();
+
+  const contract = new ethers.Contract(
+    tokenAddress,
+    GovernanceToken.abi,
+    signer
+  );
+  const tx = await contract.delegate(walletAddress);
+  await tx.wait();
+  return tx;
+};
+
+export const sendToken = async ({
+  tokenAddress,
+  toAddress,
+  amount,
+}: {
+  tokenAddress: string;
+  toAddress: string;
+  amount: string;
+}) => {
+  const provider = getProvider();
+  if (!provider) throw new Error("Provider not found");
+  const signer = await provider.getSigner();
+
+  const token = new ethers.Contract(tokenAddress, GovernanceToken.abi, signer);
+  const decimals = await token.decimals();
+  const amountInUnits = ethers.parseUnits(amount, decimals);
+
+  const tx = await token.transfer(toAddress, amountInUnits);
+  await tx.wait();
+  return tx;
 };

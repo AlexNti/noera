@@ -8,8 +8,13 @@ import {
 } from "./types";
 import { formatUnits } from "ethers";
 import { http, buildUrl, buildNFTUrl } from "@/libs/http";
+import { revalidatePath } from "next/cache";
 
 const API_KEY = process.env.ALCHEMY_API_KEY;
+
+export const revalidateCache = async () => {
+  revalidatePath("wallet/token/0xca6e48e9681fbf0bfe13180ae8b894cbe96cf2e5");
+};
 
 export const getTokenMetadata = async (address: string) => {
   try {

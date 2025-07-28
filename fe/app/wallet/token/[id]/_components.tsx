@@ -1,8 +1,405 @@
 "use client";
 
-import { getAssetTransfers } from "@/app/_actions";
+import { getAssetTransfers, revalidateCache } from "@/app/_actions";
 import { use } from "react";
 import { formatUnits } from "ethers";
+import { useState, useEffect } from "react";
+
+import { http } from "@/libs/http";
+import { sendToken, delegateVotingPower } from "@/app/_utils";
+
+export const Send = ({ tokenAddress }: { tokenAddress: string }) => {
+  const [showTransferForm, setShowTransferForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [transferData, setTransferData] = useState({
+    toAddress: "",
+    amount: "",
+  });
+
+  const handleTransfer = async () => {
+    if (!transferData.toAddress || !transferData.amount) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const tx = await sendToken({
+        tokenAddress,
+        toAddress: transferData.toAddress,
+        amount: transferData.amount,
+      });
+      console.log(tx);
+      setShowTransferForm(false);
+      setTransferData({ toAddress: "", amount: "" });
+      revalidateCache();
+    } catch (error) {
+      console.error("Transfer failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {/* Send Button */}
+      <div className="fixed bottom-6 left-6 z-50">
+        <button
+          onClick={() => setShowTransferForm(true)}
+          className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 group cursor-pointer"
+          title="Send Token"
+        >
+          <div className="flex items-center space-x-2">
+            <svg
+              className="w-5 h-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+              />
+            </svg>
+            <span className="text-sm font-medium text-white group-hover:opacity-100 transition-opacity duration-200">
+              Send
+            </span>
+          </div>
+        </button>
+      </div>
+
+      {/* Transfer Form Modal */}
+      {showTransferForm && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 w-full h-full">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/30 max-w-md w-full relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowTransferForm(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Transfer Form Content */}
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center text-white shadow-lg">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800">
+                    Send Token
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Transfer tokens to another address
+                  </p>
+                </div>
+              </div>
+
+              {/* Form Fields */}
+              <div className="space-y-4">
+                {/* Recipient Address */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Recipient Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="0x..."
+                    value={transferData.toAddress}
+                    onChange={(e) =>
+                      setTransferData({
+                        ...transferData,
+                        toAddress: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+                  />
+                </div>
+
+                {/* Amount */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="0.0"
+                    step="0.000001"
+                    value={transferData.amount}
+                    onChange={(e) =>
+                      setTransferData({
+                        ...transferData,
+                        amount: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-3 pt-4">
+                <button
+                  onClick={() => setShowTransferForm(false)}
+                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-lg text-sm font-medium hover:bg-gray-200 transition-all cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleTransfer}
+                  disabled={
+                    isLoading || !transferData.toAddress || !transferData.amount
+                  }
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-indigo-600 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Processing...
+                    </div>
+                  ) : (
+                    "Send Transfer"
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export const GovernanceChecker = ({
+  tokenAddress,
+  walletAddress,
+}: {
+  tokenAddress: string;
+  walletAddress: string;
+}) => {
+  const [governanceData, setGovernanceData] = useState<{
+    hasGovernance: boolean;
+    votingPower: string;
+    governorAddress?: string;
+    delegateAddress?: string;
+    isLoading: boolean;
+    error?: string;
+  }>({
+    hasGovernance: false,
+    votingPower: "0",
+    isLoading: true,
+  });
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleDelegateVotingPower = async () => {
+    const tx = await delegateVotingPower({
+      tokenAddress,
+      walletAddress,
+    });
+    console.log(tx);
+  };
+
+  useEffect(() => {
+    const checkGovernance = async () => {
+      try {
+        const response = await http.get(
+          `/wallet/token/${tokenAddress}/governance`
+        );
+        const data = response.data;
+
+        console.log(data);
+
+        const responseData = data as {
+          votes: string;
+        };
+
+        setGovernanceData({
+          hasGovernance: true,
+          votingPower: responseData.votes,
+          isLoading: false,
+          error: undefined,
+        });
+      } catch {
+        setGovernanceData({
+          hasGovernance: false,
+          votingPower: "0",
+          isLoading: false,
+          error: "Failed to check governance",
+        });
+      }
+    };
+
+    if (tokenAddress && walletAddress) {
+      checkGovernance();
+    }
+  }, [tokenAddress, walletAddress]);
+
+  // Don't render anything if no governance or still loading
+  if (governanceData.isLoading || !governanceData.hasGovernance) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Discrete Governance Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => setShowPopup(true)}
+          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 group cursor-pointer"
+          title="Governance Info"
+        >
+          <div className="flex items-center space-x-2">
+            <svg
+              className="w-5 h-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              />
+            </svg>
+            <span className="text-sm font-medium text-white group-hover:opacity-100 transition-opacity duration-200">
+              {parseFloat(governanceData.votingPower) > 0
+                ? `${parseFloat(governanceData.votingPower).toFixed(1)} votes`
+                : "Governance"}
+            </span>
+          </div>
+        </button>
+      </div>
+
+      {/* Governance Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 w-full h-full">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/30 max-w-md w-full relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Governance Content */}
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 via-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white shadow-lg">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800">
+                    Governance Token
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Voting power and delegation
+                  </p>
+                </div>
+              </div>
+
+              {/* Voting Power */}
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-xl border border-green-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">
+                    Your Voting Power
+                  </span>
+                  <span className="text-2xl font-bold text-green-600">
+                    {parseFloat(governanceData.votingPower).toFixed(2)}
+                  </span>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  {parseFloat(governanceData.votingPower) > 0
+                    ? "You can participate in governance proposals"
+                    : "No voting power available"}
+                </div>
+              </div>
+
+              {/* Delegate Info */}
+              <div className="space-y-3">
+                {/* Status */}
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-gray-600">
+                    Governance Active
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-3 pt-2">
+                <button className="flex-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-purple-600 hover:to-blue-600 transition-all cursor-pointer">
+                  View Proposals
+                </button>
+                <button
+                  onClick={handleDelegateVotingPower}
+                  className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-200 transition-all cursor-pointer"
+                >
+                  Delegate Votes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export const TokenTransactions = ({
   transfers,
