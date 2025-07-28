@@ -30,7 +30,11 @@ const getUserAddress = async () => {
   const provider = getProvider();
   if (!provider) throw new Error("Provider not available");
 
-  await provider.send("eth_requestAccounts", []);
+  await window.ethereum.request({
+    method: "wallet_requestPermissions",
+    params: [{ eth_accounts: {} }],
+  });
+
   const signer = await provider.getSigner();
   const address = await signer.getAddress();
 

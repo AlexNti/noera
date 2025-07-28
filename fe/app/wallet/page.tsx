@@ -15,7 +15,16 @@ export default async function Wallet() {
   //TODO CREATE WALLET SHOULD HAPPEN AS EARLY AS POSSIBLE MAYBE PART OF THE AUTHENTICATION PROCESS.
   //TODO EACH USER THAT DEPPOLYS A CONTRACT WE NEED TO SAVE THEM SOMEWHERE SO WE CAN RETRIEVE THEM AN SEE THEIR PROHGRESS (WE CAN USE USERMETDATA OF CLERK) Or custom postgres this can simplify the escrow componetns
   //TODO ALLOW USERS TO CREATE THEIR OWN TOKENS.
+  //TODO Create a proxy solidyt function to allow upgrade.
+  //TODO Update the UI to show the burn rate.
 
+  //TODO PRIORITY!!!
+  //TODO CREATE A NICE GONVERNCE UI WHERE USERS CAN VODE FOR THEIR TOKENS, FOR EXAMPLE TO INCREASE THE BURN RATE.
+  //TODO Lets listen to events when a new proposal is created so we can so the ui uodate.
+  //TODO We can lsiten to the cast vote evetns as well.
+  //For all of these options, the Governor will be compatible with Tally: users will be able to create proposals, see voting periods and delays following IERC6372
+  // , visualize voting power and advocates, navigate proposals, and cast votes.
+  //TODO END OF PRIORITY!!!
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="max-w-4xl mx-auto px-4 mt-10 gap-4 flex flex-col">
