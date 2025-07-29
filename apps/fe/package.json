@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "check-types": "tsc --noEmit",
+    "dev": "next dev --turbopack",
     "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "start": "next start"
   },
   "dependencies": {
-    "alchemy-sdk": "^3.6.1",
     "@noera/contracts": "workspace:*",
+    "alchemy-sdk": "^3.6.1",
     "ethers": "^6.15.0",
-    "next": "15.3.5",
+    "next": "15.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -24,7 +24,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.5",
+    "eslint-config-next": "15.4.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
