@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { abis, bytecodes } from "contracts";
+import { abis, bytecodes } from "@noera/contracts";
 
 let provider: ethers.BrowserProvider | null = null;
 

@@ -1,9 +1,7 @@
 {
-  "name": "contracts",
+  "name": "@noera/contracts",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -18,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx hardhat node",
-    "compile": "npx hardhat compile",
+    "compile": "npx hardhat compile --force",
     "build": "tsup",
     "build:watch": "tsup --watch",
     "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts --network sepolia",

@@ -7,7 +7,8 @@
     "fe-dev": "turbo run dev --filter=fe",
     "contracts-dev": "turbo run dev --filter=contracts",
     "compile": "turbo run compile",
-    "build": "turbo run build"
+      "build": "turbo run build",
+      "unlink-cache":"npx turbo unlink"
   },
   "keywords": [],
   "author": "",

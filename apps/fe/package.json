@@ -1,5 +1,5 @@
 {
-  "name": "fe",
+  "name": "@noera/fe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "alchemy-sdk": "^3.6.1",
-    "contracts": "workspace:*",
+    "@noera/contracts": "workspace:*",
     "ethers": "^6.15.0",
     "next": "15.3.5",
     "react": "^19.0.0",
