@@ -7,13 +7,25 @@
     "fe-dev": "turbo run dev --filter=fe",
     "contracts-dev": "turbo run dev --filter=contracts",
     "compile": "turbo run compile",
-      "build": "turbo run build",
-      "unlink-cache":"npx turbo unlink"
+    "build": "turbo run build",
+    "unlink-cache": "npx turbo unlink",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.5.19",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "turbo": "^2.5.5",
     "typescript": "^5.3.3"
   },

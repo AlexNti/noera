@@ -1,16 +1,22 @@
 {
-    "$schema": "https://turborepo.com/schema.json",
-    "tasks": {
-      "build": {
-        "dependsOn": ["^build"],
-        "outputs": [".next/**", "!.next/cache/**", "dist/**"]
-      },
-      "dev": {
-        "persistent": true,
-        "cache": false
-      },
-      "compile": {
-        "cache": false
-      }
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "compile": {
+      "cache": false
+    },
+    "format": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
     }
   }
+}
