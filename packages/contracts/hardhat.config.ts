@@ -19,7 +19,7 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
-    artifacts: "./fe/contracts/artifacts",
+    artifacts: "./artifacts",
   },
   networks: {
     sepolia: {

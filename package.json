@@ -1,40 +1,20 @@
 {
-  "name": "escrow",
+  "name": "Noera",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx hardhat node",
-    "compile": "npx hardhat compile",
-    "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts --network sepolia",
-    "deploy:upgradeable-token": "npx hardhat run scripts/deploy-upgradeable-token.ts --network sepolia",
-    "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
-    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia",
-    "nft-deploy": "npx hardhat ignition deploy ignition/modules/nft-deploy.ts --network sepolia",
-    "upload-ipfs": "npx ts-node ipfs/upload.ts",
-    "fe-dev": "turbo run dev --filter=fe"
+    "fe-dev": "turbo run dev --filter=fe",
+    "contracts-dev": "turbo run dev --filter=contracts",
+    "contracts-compile": "turbo run compile --filter=contracts"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.1.0",
-    "dotenv": "^17.2.0",
-    "hardhat": "^2.25.0",
-    "ts-node": "^10.9.2",
     "turbo": "^2.5.5",
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "@helia/dag-json": "^2.0.0",
-    "@openzeppelin/contracts": "^5.3.0",
-    "@openzeppelin/contracts-upgradeable": "^5.4.0",
-    "@openzeppelin/hardhat-upgrades": "^3.9.1",
-    "helia": "^2.0.0",
-    "ipfs-http-client": "^60.0.1",
-    "multiformats": "^13.0.0"
   },
   "packageManager": "pnpm@10.0.0"
 }
