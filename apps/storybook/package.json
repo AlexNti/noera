@@ -1,20 +1,21 @@
 {
   "name": "storybook",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
+    "build-storybook": "storybook build",
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@noera/ui": "link:../../packages/ui",
+    "@tailwindcss/vite": "^4.1.11",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
