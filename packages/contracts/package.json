@@ -2,11 +2,25 @@
   "name": "contracts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./contracts": "./artifacts/contracts",
+    "./types": "./typechain-types/index.ts",
+    "./factories": "./typechain-types/factories/index.ts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx hardhat node",
     "compile": "npx hardhat compile",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
     "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts --network sepolia",
     "deploy:upgradeable-token": "npx hardhat run scripts/deploy-upgradeable-token.ts --network sepolia",
     "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
@@ -20,17 +34,20 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
     "@nomicfoundation/hardhat-verify": "^2.1.0",
+    "@types/node": "^22.7.5",
     "dotenv": "^17.2.0",
     "hardhat": "^2.25.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.5.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "tsup": "^7.2.0"
   },
   "dependencies": {
     "@helia/dag-json": "^2.0.0",
     "@openzeppelin/contracts": "^5.3.0",
     "@openzeppelin/contracts-upgradeable": "^5.4.0",
     "@openzeppelin/hardhat-upgrades": "^3.9.1",
+    "ethers": "^6.15.0",
     "helia": "^2.0.0",
     "ipfs-http-client": "^60.0.1",
     "multiformats": "^13.0.0"

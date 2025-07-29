@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
-import Escrow from "@/contracts/artifacts/contracts/Escrow.sol/Escrow.json";
-import GovernanceToken from "@/contracts/artifacts/contracts/GovernanceToken.sol/GovernanceToken.json";
+import { abis, bytecodes } from "contracts";
 
 let provider: ethers.BrowserProvider | null = null;
 
@@ -14,8 +13,8 @@ export const getProvider = () => {
 
 const createEscrowFactory = (signer: ethers.Signer) => {
   return new ethers.ContractFactory(
-    Escrow.abi as ethers.InterfaceAbi,
-    Escrow.bytecode as string,
+    abis.Escrow,
+    bytecodes.Escrow as string,
     signer
   );
 };
@@ -50,7 +49,7 @@ export const approveEscrow = async ({
   contractAddress: string;
   signer: ethers.Signer;
 }) => {
-  const contract = new ethers.Contract(contractAddress, Escrow.abi, signer);
+  const contract = new ethers.Contract(contractAddress, abis.Escrow, signer);
   const isApproved = await contract.isApproved();
   if (isApproved) throw new Error("Escrow already approved");
   const tx = await contract.approve();
@@ -83,7 +82,7 @@ export const delegateVotingPower = async ({
 
   const contract = new ethers.Contract(
     tokenAddress,
-    GovernanceToken.abi,
+    abis.GovernanceToken,
     signer
   );
   const tx = await contract.delegate(walletAddress);
@@ -104,7 +103,7 @@ export const sendToken = async ({
   if (!provider) throw new Error("Provider not found");
   const signer = await provider.getSigner();
 
-  const token = new ethers.Contract(tokenAddress, GovernanceToken.abi, signer);
+  const token = new ethers.Contract(tokenAddress, abis.GovernanceToken, signer);
   const decimals = await token.decimals();
   const amountInUnits = ethers.parseUnits(amount, decimals);
 

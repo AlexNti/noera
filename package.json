@@ -6,8 +6,9 @@
   "scripts": {
     "fe-dev": "turbo run dev --filter=fe",
     "contracts-dev": "turbo run dev --filter=contracts",
-    "contracts-compile": "turbo run compile --filter=contracts"
-
+    "contracts-compile": "turbo run compile --filter=contracts",
+    "contracts-build": "turbo run build --filter=contracts",
+    "build": "turbo run build"
   },
   "keywords": [],
   "author": "",
