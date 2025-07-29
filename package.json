@@ -12,8 +12,8 @@
     "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
     "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia",
     "nft-deploy": "npx hardhat ignition deploy ignition/modules/nft-deploy.ts --network sepolia",
-    "upload-ipfs": "npx ts-node ipfs/upload.ts"
-
+    "upload-ipfs": "npx ts-node ipfs/upload.ts",
+    "fe-dev": "turbo run dev --filter=fe"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "dotenv": "^17.2.0",
     "hardhat": "^2.25.0",
     "ts-node": "^10.9.2",
+    "turbo": "^2.5.5",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -34,5 +35,6 @@
     "helia": "^2.0.0",
     "ipfs-http-client": "^60.0.1",
     "multiformats": "^13.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.0.0"
 }
