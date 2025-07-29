@@ -1,4 +1,10 @@
-@import "tailwindcss";
+@import '@noera/ui/theme.css';
+
+/*
+@noera/ui/theme.css already imports tailwindcss is it a good practice? to import it again?
+*/
+
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
-import '../../theme.css';
 
 /*
  * Composable Card Component
