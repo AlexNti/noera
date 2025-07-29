@@ -1,7 +1,3 @@
-// Export contract types and interfaces
-export * from "../typechain-types/contracts";
-export * from "../typechain-types/common";
-
 // Import artifacts directly
 import escrowArtifact from "../artifacts/contracts/Escrow.sol/Escrow.json";
 import franekTataTokenArtifact from "../artifacts/contracts/FranekTataToken.sol/FranekTataToken.json";
@@ -38,6 +34,3 @@ export const bytecodes = {
   FranekosKokosNFT: franekosKokosNFTArtifact.bytecode,
   StorageSlot: storageSlotArtifact.bytecode,
 };
-
-// Export factories
-export * from "../typechain-types/factories/contracts";
