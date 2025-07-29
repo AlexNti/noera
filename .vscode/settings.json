@@ -39,5 +39,9 @@
   "prettier.resolveGlobalModules": true,
   "editor.formatOnSaveMode": "file",
   "prettier.enable": true,
-  "prettier.disableLanguages": []
+  "prettier.disableLanguages": [],
+  "editor.indentSize": "tabSize",
+  "tailwindCSS.experimental.classRegex": [
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ]
 } 

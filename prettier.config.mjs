@@ -1,15 +1,14 @@
 export default {
-  arrowParens: "avoid",
+  arrowParens: 'avoid',
   bracketSpacing: true,
   jsxSingleQuote: true,
-  plugins: ["prettier-plugin-packagejson", "prettier-plugin-tailwindcss"],
+  plugins: ['prettier-plugin-packagejson', 'prettier-plugin-tailwindcss'],
   printWidth: 120,
   semi: true,
   singleAttributePerLine: true,
   singleQuote: true,
   tabWidth: 2,
-  trailingComma: "all",
-  tailwindFunctions: ["clsx", "cn", "tw"],  
-  tailwindStylesheet: "./apps/fe/app/globals.css",
-
+  trailingComma: 'all',
+  tailwindFunctions: ['clsx', 'cn', 'tw', 'tv'],
+  tailwindStylesheet: './packages/ui/src/theme.css',
 };
