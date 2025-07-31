@@ -43,5 +43,6 @@
   "editor.indentSize": "tabSize",
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ]
+  ],
+  "tailwindCSS.experimental.configFile": "packages/ui/src/theme.css"
 } 
