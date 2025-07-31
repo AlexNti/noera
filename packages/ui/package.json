@@ -23,6 +23,7 @@
     "dist"
   ],
   "scripts": {
+    "analyze": "npx tailwindcss --input ./src/theme.css --output ./dist/theme.css --report",
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint src --ext .ts,.tsx",
