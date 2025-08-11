@@ -2,7 +2,9 @@
   "name": "@noera/contracts",
   "version": "1.0.0",
   "description": "",
-  "types": "./dist/index.d.ts",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -13,32 +15,19 @@
     "./types": "./typechain-types/index.ts",
     "./factories": "./typechain-types/factories/index.ts"
   },
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx hardhat node",
-    "compile": "npx hardhat compile --force",
+    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia",
     "build": "tsup",
     "build:watch": "tsup --watch",
+    "compile": "npx hardhat compile --force",
     "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts --network sepolia",
     "deploy:upgradeable-token": "npx hardhat run scripts/deploy-upgradeable-token.ts --network sepolia",
-    "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
-    "airdrop": "npx hardhat ignition deploy ignition/modules/airdrop.ts --network sepolia",
+    "dev": "npx hardhat node",
     "nft-deploy": "npx hardhat ignition deploy ignition/modules/nft-deploy.ts --network sepolia",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
     "upload-ipfs": "npx ts-node ipfs/upload.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.1.0",
-    "@types/node": "^22.7.5",
-    "dotenv": "^17.2.0",
-    "hardhat": "^2.25.0",
-    "ts-node": "^10.9.2",
-    "turbo": "^2.5.5",
-    "typescript": "^5.3.3",
-    "tsup": "^7.2.0"
   },
   "dependencies": {
     "@helia/dag-json": "^2.0.0",
@@ -49,6 +38,19 @@
     "helia": "^2.0.0",
     "ipfs-http-client": "^60.0.1",
     "multiformats": "^13.0.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.1.0",
+    "@types/chai": "^4.0.0",
+    "@types/node": "^22.7.5",
+    "chai": "^4.0.0",
+    "dotenv": "^17.2.0",
+    "hardhat": "^2.25.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^7.2.0",
+    "turbo": "^2.5.5",
+    "typescript": "^5.3.3"
   },
   "packageManager": "pnpm@10.0.0"
 }
