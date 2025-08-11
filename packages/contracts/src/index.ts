@@ -1,13 +1,13 @@
 // Import artifacts directly
-import escrowArtifact from "../artifacts/contracts/Escrow.sol/Escrow.json";
-import franekTataTokenArtifact from "../artifacts/contracts/FranekTataToken.sol/FranekTataToken.json";
-import franekTataTokenUpgradeableArtifact from "../artifacts/contracts/FranekTataTokenUpgradeable.sol/FranekTataTokenUpgradeable.json";
-import franekTataTokenUpgradeableV2Artifact from "../artifacts/contracts/FranekTataTokenUpgradeableV2.sol/FranekTataTokenUpgradeableV2.json";
-import governanceTokenArtifact from "../artifacts/contracts/GovernanceToken.sol/GovernanceToken.json";
-import myGovernorArtifact from "../artifacts/contracts/MyGovernor.sol/MyGovernor.json";
-import franekekosKokosNFTArtifact from "../artifacts/contracts/FranekekosKokosNFT.sol/FranekekosKokosNFT.json";
-import franekosKokosNFTArtifact from "../artifacts/contracts/FranekosKokosNFT.sol/FranekosKokosNFT.json";
-import storageSlotArtifact from "../artifacts/contracts/StorageSlot.sol/StorageSlot.json";
+import escrowArtifact from '../artifacts/contracts/Escrow.sol/Escrow.json';
+import franekekosKokosNFTArtifact from '../artifacts/contracts/FranekekosKokosNFT.sol/FranekekosKokosNFT.json';
+import franekosKokosNFTArtifact from '../artifacts/contracts/FranekosKokosNFT.sol/FranekosKokosNFT.json';
+import franekTataTokenArtifact from '../artifacts/contracts/FranekTataToken.sol/FranekTataToken.json';
+import franekTataTokenUpgradeableArtifact from '../artifacts/contracts/FranekTataTokenUpgradeable.sol/FranekTataTokenUpgradeable.json';
+import franekTataTokenUpgradeableV2Artifact from '../artifacts/contracts/FranekTataTokenUpgradeableV2.sol/FranekTataTokenUpgradeableV2.json';
+import governanceTokenArtifact from '../artifacts/contracts/GovernanceToken.sol/GovernanceToken.json';
+import myGovernorArtifact from '../artifacts/contracts/MyGovernor.sol/MyGovernor.json';
+import storageSlotArtifact from '../artifacts/contracts/StorageSlot.sol/StorageSlot.json';
 
 // Export simple ABIs
 export const abis = {
