@@ -31,18 +31,18 @@ import { tv, type VariantProps } from 'tailwind-variants';
  * </Card>
  */
 
-const cardVariants = tv({
+export const cardVariants = tv({
   base: 'rounded-xl border transition-all duration-300',
   variants: {
     variant: {
-      default: 'bg-[var(--gradient-secondary)] hover:shadow-lg hover:scale-105',
+      default: 'bg-[var(--gradient-secondary)] hover:scale-105 hover:shadow-lg',
       glass:
-        'bg-gradient-to-br from-white/20 to-white/10 border-white/20 backdrop-blur-md hover:shadow-lg hover:scale-105',
-      primary: 'bg-[var(--gradient-primary)] hover:shadow-lg hover:scale-105',
-      secondary: 'bg-[var(--gradient-secondary)] hover:shadow-lg hover:scale-105',
-      success: 'bg-[var(--gradient-success)] hover:shadow-lg hover:scale-105',
-      warning: 'bg-[var(--gradient-warning)] hover:shadow-lg hover:scale-105',
-      error: 'bg-[var(--gradient-accent)] hover:shadow-lg hover:scale-105',
+        'border-white/20 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md hover:scale-105 hover:shadow-lg',
+      primary: 'bg-[var(--gradient-primary)] hover:scale-105 hover:shadow-lg',
+      secondary: 'bg-[var(--gradient-secondary)] hover:scale-105 hover:shadow-lg',
+      success: 'bg-[var(--gradient-success)] hover:scale-105 hover:shadow-lg',
+      warning: 'bg-[var(--gradient-warning)] hover:scale-105 hover:shadow-lg',
+      error: 'bg-[var(--gradient-accent)] hover:scale-105 hover:shadow-lg',
     },
     size: {
       sm: 'p-3',
@@ -50,7 +50,7 @@ const cardVariants = tv({
       lg: 'p-6',
     },
     interactive: {
-      true: 'cursor-pointer group',
+      true: 'group cursor-pointer',
       false: '',
     },
   },
