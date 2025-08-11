@@ -1,17 +1,17 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import "@nomicfoundation/hardhat-ignition";
-import "@openzeppelin/hardhat-upgrades";
-import "@nomicfoundation/hardhat-verify";
+import dotenv from 'dotenv';
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
+import '@nomicfoundation/hardhat-ignition';
+import '@openzeppelin/hardhat-upgrades';
+import '@nomicfoundation/hardhat-verify';
 
-import dotenv from "dotenv";
 dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.28",
+    version: '0.8.28',
     settings: {
-      evmVersion: "cancun",
+      evmVersion: 'cancun',
       optimizer: {
         enabled: true,
         runs: 200,
@@ -19,7 +19,7 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
-    artifacts: "./artifacts",
+    artifacts: './artifacts',
   },
   networks: {
     sepolia: {
