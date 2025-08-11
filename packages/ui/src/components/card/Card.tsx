@@ -3,6 +3,13 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
+/**
+ * Glassmorphism Card with tone-aware glass variants
+ * - appearance: 'glass' or 'solid'
+ * - tone: 'default' | semantic tones (primary, warning, error, etc.)
+ * - polished hover/elevation + focus-visible a11y
+ */
+
 export const cardVariants = tv({
   base: [
     'relative isolate overflow-hidden rounded-2xl border',
