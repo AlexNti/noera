@@ -5,6 +5,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "",
+  "type": "commonjs",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -24,6 +25,8 @@
     "deploy:token": "npx hardhat ignition deploy ignition/modules/deploy-token.ts --network sepolia",
     "deploy:upgradeable-token": "npx hardhat run scripts/deploy-upgradeable-token.ts --network sepolia",
     "dev": "npx hardhat node",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
     "nft-deploy": "npx hardhat ignition deploy ignition/modules/nft-deploy.ts --network sepolia",
     "test": "echo \"Error: no test specified\" && exit 1",
     "upgrade:token": "npx hardhat run scripts/upgrade-token.ts --network sepolia",
@@ -42,15 +45,17 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
     "@nomicfoundation/hardhat-verify": "^2.1.0",
-    "@types/chai": "^4.0.0",
     "@types/node": "^22.7.5",
-    "chai": "^4.0.0",
     "dotenv": "^17.2.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "globals": "^16.3.0",
     "hardhat": "^2.25.0",
     "ts-node": "^10.9.2",
     "tsup": "^7.2.0",
     "turbo": "^2.5.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.39.0"
   },
   "packageManager": "pnpm@10.0.0"
 }
