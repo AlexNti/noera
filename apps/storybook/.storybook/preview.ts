@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
+import '@noera/ui/theme.css';
 import '../src/index.css';
 
 const preview: Preview = {
@@ -17,7 +18,7 @@ const preview: Preview = {
     backgrounds: {
       options: {
         dark: { name: 'Dark', value: '#333' },
-        glassLight: { name: 'glassLight', value: '#F7F9F2' },
+        glassLight: { name: 'glassLight', value: 'var(--gradient-pastel-sunset)' },
         maroon: { name: 'Maroon', value: '#400' },
       },
     },

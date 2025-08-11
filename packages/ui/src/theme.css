@@ -1,4 +1,21 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+@import 'tailwindcss';
+
+@source inline("{hover:,focus:,}bg-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+@source inline("{hover:,focus:,}text-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+@source inline("{hover:,focus:,}border-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+
+@source inline("{hover:,focus:,}bg-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+@source inline("{hover:,focus:,}text-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+@source inline("{hover:,focus:,}border-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+
+@source inline("{hover:,focus:,}bg-{primary,secondary,accent,success,warning,error,info,neutral}");
+@source inline("{hover:,focus:,}text-{primary,secondary,accent,success,warning,error,info,neutral}");
+@source inline("{hover:,focus:,}border-{primary,secondary,accent,success,warning,error,info,neutral}");
+
+@source inline("{hover:,focus:,}bg-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
+@source inline("{hover:,focus:,}text-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
+@source inline("{hover:,focus:,}border-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
 
 @theme {
   --font-family-satoshi: 'Satoshi', sans-serif;
