@@ -9,9 +9,13 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    appearance: {
       control: { type: 'select' },
-      options: ['default', 'glass', 'primary', 'secondary', 'success', 'warning', 'error'],
+      options: ['glass', 'solid'],
+    },
+    tone: {
+      control: { type: 'select' },
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
     },
     size: {
       control: { type: 'select' },
@@ -51,7 +55,8 @@ export const Default: Story = {
     </Card>
   ),
   args: {
-    variant: 'default',
+    appearance: 'solid',
+    tone: 'default',
     size: 'md',
     interactive: false,
   },
@@ -82,7 +87,8 @@ export const Glass: Story = {
     </Card>
   ),
   args: {
-    variant: 'glass',
+    appearance: 'glass',
+    tone: 'default',
     size: 'md',
     interactive: true,
   },
@@ -113,8 +119,29 @@ export const Primary: Story = {
     </Card>
   ),
   args: {
-    variant: 'primary',
+    appearance: 'solid',
+    tone: 'primary',
     size: 'md',
     interactive: true,
   },
+};
+
+export const AllTones: Story = {
+  render: () => (
+    <div className='grid grid-cols-4 gap-4'>
+      {['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral', 'default'].map(tone => (
+        <Card
+          key={tone}
+          appearance='solid'
+          tone={tone as any}
+          size='sm'
+        >
+          <Card.Body>
+            <Card.Title>{tone}</Card.Title>
+            <Card.Description>This is the {tone} tone</Card.Description>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
+  ),
 };
