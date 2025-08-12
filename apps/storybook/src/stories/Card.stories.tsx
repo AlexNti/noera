@@ -13,10 +13,6 @@ const meta = {
       control: { type: 'select' },
       options: ['glass', 'solid'],
     },
-    tone: {
-      control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
-    },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
@@ -56,7 +52,6 @@ export const Default: Story = {
   ),
   args: {
     appearance: 'solid',
-    tone: 'default',
     size: 'md',
     interactive: false,
   },
@@ -88,13 +83,12 @@ export const Glass: Story = {
   ),
   args: {
     appearance: 'glass',
-    tone: 'default',
     size: 'md',
     interactive: true,
   },
 };
 
-export const Primary: Story = {
+export const Interactive: Story = {
   render: args => (
     <Card {...args}>
       <Card.Image
@@ -103,7 +97,7 @@ export const Primary: Story = {
         badge='#123'
       />
       <Card.Body>
-        <Card.Title>Cosmic Explorer #123</Card.Title>
+        <Card.Title>Interactive Card</Card.Title>
         <Card.Subtitle>
           <span>Cosmic Collection</span>
           <Card.Tag>ERC-721</Card.Tag>
@@ -112,33 +106,29 @@ export const Primary: Story = {
           <Card.Attribute>Rarity: Legendary</Card.Attribute>
           <Card.Attribute>Level: 5</Card.Attribute>
         </Card.Attributes>
-        <Card.Description>
-          A rare cosmic explorer NFT with extraordinary attributes and stunning visual design.
-        </Card.Description>
+        <Card.Description>An interactive card that responds to hover and click events.</Card.Description>
       </Card.Body>
     </Card>
   ),
   args: {
     appearance: 'solid',
-    tone: 'primary',
     size: 'md',
     interactive: true,
   },
 };
 
-export const AllTones: Story = {
+export const AllAppearances: Story = {
   render: () => (
-    <div className='grid grid-cols-4 gap-4'>
-      {['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral', 'default'].map(tone => (
+    <div className='grid grid-cols-2 gap-4'>
+      {['glass', 'solid'].map(appearance => (
         <Card
-          key={tone}
-          appearance='solid'
-          tone={tone as any}
-          size='sm'
+          key={appearance}
+          appearance={appearance as any}
+          size='md'
         >
           <Card.Body>
-            <Card.Title>{tone}</Card.Title>
-            <Card.Description>This is the {tone} tone</Card.Description>
+            <Card.Title>{appearance} appearance</Card.Title>
+            <Card.Description>This card uses the {appearance} appearance style</Card.Description>
           </Card.Body>
         </Card>
       ))}

@@ -3,13 +3,6 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 
-/**
- * Glassmorphism Card with tone-aware glass variants
- * - appearance: 'glass' or 'solid'
- * - tone: 'default' | semantic tones (primary, warning, error, etc.)
- * - polished hover/elevation + focus-visible a11y
- */
-
 export const cardVariants = tv({
   base: [
     'relative isolate overflow-hidden rounded-2xl border',
@@ -21,32 +14,26 @@ export const cardVariants = tv({
   variants: {
     appearance: {
       glass: [
-        // core glass
+        // frosted base + support-fallback
         'bg-white/10 dark:bg-white/5',
         'backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/10',
+        // themed tint (image layer) – avoids bg-* merge issues
+        'bg-blend-overlay [background-image:var(--gradient-primary-glass)]',
+        // depth + edge
         'shadow-[0_12px_40px_rgba(0,0,0,0.12)]',
-        'border-white/20 ring-1 ring-white/10',
-        // subtle inner highlight + glossy edge
+        'border-white/20 ring-1 ring-[var(--color-primary-glass)]',
+        // subtle light
         "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:content-['']",
         'before:bg-[radial-gradient(120%_80%_at_0%_0%,rgba(255,255,255,0.35),rgba(255,255,255,0.08)_45%,transparent_60%)]',
         "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:content-['']",
-        'after:bg-[linear-gradient(135deg,rgba(255,255,255,0.35),rgba(255,255,255,0.12)_35%,transparent_60%)] after:opacity-70 after:mix-blend-overlay',
+        'after:bg-[linear-gradient(135deg,rgba(255,255,255,0.35),rgba(255,255,255,0.12)_35% ,transparent_60%)] after:opacity-70 after:mix-blend-overlay',
       ],
       solid: [
-        'bg-white/85 dark:bg-white/10',
+        // use the primary gradient for solids
+        'bg-[var(--gradient-primary)]',
         'border-black/10 dark:border-white/10',
         'shadow-[0_8px_24px_rgba(0,0,0,0.08)]',
       ],
-    },
-    tone: {
-      default: '', // handled in compound or base
-      primary: '',
-      secondary: '',
-      success: '',
-      warning: '',
-      error: '',
-      info: '',
-      neutral: '',
     },
     size: {
       sm: 'p-3',
@@ -75,83 +62,7 @@ export const cardVariants = tv({
     },
   },
   compoundVariants: [
-    // GLASS + tones (use your glass gradients + colored glass rings)
-    {
-      appearance: 'glass',
-      tone: 'primary',
-      class: [
-        'bg-[var(--gradient-primary-glass)] text-[var(--color-text-primary)]',
-        'ring-[var(--color-primary-glass)]',
-      ],
-    },
-    {
-      appearance: 'glass',
-      tone: 'secondary',
-      class: [
-        'bg-[var(--gradient-secondary-glass)] text-[var(--color-text-primary)]',
-        'ring-[var(--color-secondary-glass)]',
-      ],
-    },
-    {
-      appearance: 'glass',
-      tone: 'success',
-      class: [
-        'bg-[var(--gradient-success-glass)] text-[var(--color-text-primary)]',
-        'ring-[var(--color-success-glass)]',
-      ],
-    },
-    {
-      appearance: 'glass',
-      tone: 'warning',
-      class: [
-        'bg-[var(--gradient-warning-glass)] text-[var(--color-text-primary)]',
-        'ring-[var(--color-warning-glass)]',
-      ],
-    },
-    {
-      appearance: 'glass',
-      tone: 'error',
-      class: ['bg-[var(--gradient-accent-glass)] text-[var(--color-text-primary)]', 'ring-[var(--color-accent-glass)]'],
-    },
-    {
-      appearance: 'glass',
-      tone: 'info',
-      class: ['bg-[var(--color-info-glass)] text-[var(--color-text-primary)]', 'ring-[var(--color-info-glass)]'],
-    },
-    {
-      appearance: 'glass',
-      tone: 'neutral',
-      class: ['bg-[var(--color-neutral-glass)] text-[var(--color-text-primary)]', 'ring-[var(--color-neutral-glass)]'],
-    },
-
-    // SOLID + tones (normal gradients; still a bit glass-adjacent with soft shadow)
-    {
-      appearance: 'solid',
-      tone: 'primary',
-      class: 'border-transparent bg-[var(--gradient-primary)] text-[var(--color-text-inverse)]',
-    },
-    {
-      appearance: 'solid',
-      tone: 'secondary',
-      class: 'border-transparent bg-[var(--gradient-secondary)] text-[var(--color-text-inverse)]',
-    },
-    {
-      appearance: 'solid',
-      tone: 'success',
-      class: 'border-transparent bg-[var(--gradient-success)] text-[var(--color-text-inverse)]',
-    },
-    {
-      appearance: 'solid',
-      tone: 'warning',
-      class: 'border-transparent bg-[var(--gradient-warning)] text-[var(--color-text-primary)]',
-    },
-    {
-      appearance: 'solid',
-      tone: 'error',
-      class: 'border-transparent bg-[var(--gradient-accent)] text-[var(--color-text-inverse)]',
-    },
-
-    // Slightly brighten glass on hover when interactive
+    // brighten glass on hover if interactive
     {
       appearance: 'glass',
       interactive: true,
@@ -160,7 +71,6 @@ export const cardVariants = tv({
   ],
   defaultVariants: {
     appearance: 'glass',
-    tone: 'default',
     size: 'md',
     elevation: 'md',
     hover: 'lift',
@@ -169,12 +79,13 @@ export const cardVariants = tv({
   },
 });
 
-// Subcomponent builders (all TV, no joins)
+/* ----- Subcomponent builders (TV only) ----- */
+
 const cardHeader = tv({ base: 'mb-3' });
 const cardBody = tv({ base: 'space-y-2' });
 
 const cardImage = tv({
-  base: ['relative mb-3 overflow-hidden rounded-xl ring-1 ring-white/10'],
+  base: ['relative mb-3 overflow-hidden rounded-xl ring-1 ring-[var(--color-primary-glass)]'],
   variants: {
     aspect: {
       auto: 'h-32',
@@ -197,33 +108,30 @@ const cardBadge = tv({
   base: 'absolute right-2 top-2 rounded-full bg-black/50 px-2 py-1 text-xs text-white backdrop-blur-sm',
 });
 
-const cardTitle = tv({ base: 'truncate text-sm font-bold text-[var(--color-text-primary)]' });
-const cardSubtitle = tv({ base: 'flex items-center justify-between text-xs text-[var(--color-text-secondary)]' });
+const cardTitle = tv({
+  base: 'truncate text-sm font-bold text-[var(--color-text-primary)]',
+});
+
+const cardSubtitle = tv({
+  base: 'flex items-center justify-between text-xs text-[var(--color-text-secondary)]',
+});
 
 const cardTag = tv({
-  base: ['rounded-full px-2 py-1 text-xs font-medium ring-1 ring-white/20 backdrop-blur-sm'],
-  variants: {
-    tone: {
-      primary: 'bg-[var(--color-primary-glass)] text-[var(--color-primary)]',
-      secondary: 'bg-[var(--color-secondary-glass)] text-[var(--color-secondary)]',
-      success: 'bg-[var(--color-success-glass)] text-[var(--color-success)]',
-      warning: 'bg-[var(--color-warning-glass)] text-[var(--color-warning)]',
-      error: 'bg-[var(--color-error-glass)] text-[var(--color-error)]',
-      info: 'bg-[var(--color-info-glass)] text-[var(--color-info)]',
-      neutral: 'bg-[var(--color-neutral-glass)] text-[var(--color-neutral)]',
-      default: 'bg-[var(--color-primary-glass)] text-[var(--color-primary)]',
-    },
-  },
-  defaultVariants: { tone: 'default' },
+  // lavender-glass chip
+  base: 'rounded-full bg-[var(--color-primary-glass)] px-2 py-1 text-xs font-medium text-[var(--color-text-primary)] ring-1 ring-[var(--color-primary-glass)] backdrop-blur-sm',
 });
 
 const cardAttributes = tv({ base: 'mt-2 flex flex-wrap gap-1' });
-const cardAttribute = tv({
-  base: 'rounded-full bg-[var(--color-neutral-glass)] px-2 py-1 text-xs text-[var(--color-text-secondary)] ring-1 ring-white/10 backdrop-blur-sm',
-});
-const cardDescription = tv({ base: 'mt-2 line-clamp-2 text-xs text-[var(--color-text-secondary)]' });
 
-/* Types */
+const cardAttribute = tv({
+  base: 'rounded-full bg-[var(--color-primary-glass)] px-2 py-1 text-xs text-[var(--color-text-secondary)] ring-1 ring-[var(--color-primary-glass)] backdrop-blur-sm',
+});
+
+const cardDescription = tv({
+  base: 'mt-2 line-clamp-2 text-xs text-[var(--color-text-secondary)]',
+});
+
+/* ----- Types ----- */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -234,18 +142,18 @@ export interface CardImageProps extends React.ImgHTMLAttributes<HTMLImageElement
 }
 export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 export interface CardSubtitleProps extends React.HTMLAttributes<HTMLDivElement> {}
-export interface CardTagProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof cardTag> {}
+export interface CardTagProps extends React.HTMLAttributes<HTMLSpanElement> {}
 export interface CardAttributesProps extends React.HTMLAttributes<HTMLDivElement> {}
 export interface CardAttributeProps extends React.HTMLAttributes<HTMLSpanElement> {}
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
-/* Components */
+/* ----- Components ----- */
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, appearance, tone, size, elevation, hover, interactive, disabled, ...props }, ref) => {
+  ({ className, appearance, size, elevation, hover, interactive, disabled, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={cardVariants({ appearance, tone, size, elevation, hover, interactive, disabled, className })}
+        className={cardVariants({ appearance, size, elevation, hover, interactive, disabled, className })}
         {...props}
       />
     );
@@ -342,10 +250,10 @@ const CardSubtitle = React.forwardRef<HTMLDivElement, CardSubtitleProps>(({ clas
 ));
 CardSubtitle.displayName = 'CardSubtitle';
 
-const CardTag = React.forwardRef<HTMLSpanElement, CardTagProps>(({ className, tone, ...props }, ref) => (
+const CardTag = React.forwardRef<HTMLSpanElement, CardTagProps>(({ className, ...props }, ref) => (
   <span
     ref={ref}
-    className={cardTag({ tone, className })}
+    className={cardTag({ className })}
     {...props}
   />
 ));
@@ -378,7 +286,7 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionPr
 ));
 CardDescription.displayName = 'CardDescription';
 
-// Compose
+/* Compose */
 const ComposableCard = Object.assign(Card, {
   Header: CardHeader,
   Body: CardBody,
