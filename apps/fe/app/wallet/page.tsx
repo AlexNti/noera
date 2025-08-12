@@ -1,12 +1,13 @@
-import { ConnectWallet, NFTs, TokenBalance } from "@/app/wallet/_components";
-import { getNFTs, getToken } from "@/app/_actions";
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+import { ConnectWallet, TokenBalance } from '@/app/wallet/_components';
+import { getNFTs, getToken } from '@/app/_actions';
+import { Suspense } from 'react';
+import { cookies } from 'next/headers';
+
+import { NFTs } from '@/app/wallet/_components/nft';
 
 export default async function Wallet() {
   const cookieStore = await cookies();
-  const walletAddress =
-    cookieStore.get("escrow_sing_user_address")?.value || "";
+  const walletAddress = cookieStore.get('escrow_sing_user_address')?.value || '';
   const token = getToken({ walletAddress });
   const nfts = getNFTs({ walletAddress });
 
@@ -27,11 +28,9 @@ export default async function Wallet() {
   //TODO END OF PRIORITY!!!
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="max-w-4xl mx-auto px-4 mt-10 gap-4 flex flex-col">
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Wallet Dashboard
-          </h1>
+      <div className='mx-auto mt-10 flex max-w-4xl flex-col gap-4 px-4'>
+        <div className='flex flex-col gap-4 rounded-lg p-6'>
+          <h1 className='mb-8 text-center text-3xl font-bold text-gray-900'>Wallet Dashboard</h1>
           <ConnectWallet />
           {walletAddress && <TokenBalance token={token} />}
           {walletAddress && <NFTs nfts={nfts} />}
