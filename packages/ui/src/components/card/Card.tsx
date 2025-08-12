@@ -5,7 +5,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 export const cardVariants = tv({
   base: [
-    'relative isolate overflow-hidden rounded-2xl border',
+    'relative isolate overflow-hidden rounded-2xl',
     'transition-all duration-300 ease-out',
     'transform-gpu outline-none [backface-visibility:hidden]',
     'focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-0',
@@ -14,24 +14,15 @@ export const cardVariants = tv({
   variants: {
     appearance: {
       glass: [
-        // frosted base + support-fallback
-        'backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/10',
-        // themed tint (image layer) – avoids bg-* merge issues
-        'bg-blend-overlay [background-image:var(--gradient-primary-glass)]',
-        // depth + edge
-        'shadow-[0_12px_40px_rgba(0,0,0,0.12)]',
-        'border-white/20 ring-1 ring-[var(--color-primary-glass)]',
-        // subtle light
-        "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:content-['']",
-        'before:bg-[radial-gradient(120%_80%_at_0%_0%,rgba(255,255,255,0.35),rgba(255,255,255,0.08)_45%,transparent_60%)]',
-        "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:content-['']",
-        'after:bg-[linear-gradient(135deg,rgba(255,255,255,0.35),rgba(255,255,255,0.12)_35% ,transparent_60%)] after:opacity-70 after:mix-blend-overlay',
+        // true glassmorphism base
+        'backdrop-blur-xl backdrop-saturate-150',
+        'ring-primary ring-1',
       ],
       solid: [
         // use the primary gradient for solids
         'bg-[var(--gradient-primary)]',
         'border-black/10 dark:border-white/10',
-        'shadow-[0_8px_24px_rgba(0,0,0,0.08)]',
+        'shadow-1',
       ],
     },
     size: {
@@ -41,15 +32,15 @@ export const cardVariants = tv({
     },
     elevation: {
       none: '',
-      sm: 'shadow-[0_6px_20px_rgba(0,0,0,0.10)]',
-      md: 'shadow-[0_12px_36px_rgba(0,0,0,0.12)]',
-      lg: 'shadow-[0_16px_56px_rgba(0,0,0,0.16)]',
+      sm: 'shadow-1',
+      md: 'shadow-2',
+      lg: 'shadow-3',
     },
     hover: {
       none: '',
       lift: 'hover:-translate-y-0.5',
-      scale: 'hover:scale-[1.015] hover:shadow-[0_16px_60px_rgba(0,0,0,0.18)]',
-      glow: 'hover:[box-shadow:0_0_0_1px_rgba(255,255,255,0.25),0_20px_80px_rgba(0,0,0,0.20)]',
+      scale: 'hover:shadow-1 hover:scale-[1.015]',
+      glow: 'hover:shadow-3',
     },
     interactive: {
       true: 'group cursor-pointer',
@@ -84,7 +75,7 @@ const cardHeader = tv({ base: 'mb-3' });
 const cardBody = tv({ base: 'space-y-2' });
 
 const cardImage = tv({
-  base: ['relative mb-3 overflow-hidden rounded-xl ring-1 ring-[var(--color-primary-glass)]'],
+  base: ['ring-primary relative mb-3 overflow-hidden rounded-xl ring-1'],
   variants: {
     aspect: {
       auto: 'h-32',
