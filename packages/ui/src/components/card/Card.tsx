@@ -17,12 +17,16 @@ export const cardVariants = tv({
         // true glassmorphism base
         'backdrop-blur-xl backdrop-saturate-150',
         'ring-primary ring-1',
+        'bg-white/10',
+        // inner light reflection (key glassmorphism element)
+        'before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:content-[""]',
+        'before:bg-gradient-to-br before:from-white/20 before:to-transparent before:opacity-60',
       ],
       solid: [
         // use the primary gradient for solids
         'bg-[var(--gradient-primary)]',
         'border-black/10 dark:border-white/10',
-        'shadow-1',
+        'shadow-[0_8px_24px_rgba(0,0,0,0.08)]',
       ],
     },
     size: {
@@ -95,30 +99,30 @@ const cardImageImg = tv({
 });
 
 const cardBadge = tv({
-  base: 'absolute right-2 top-2 rounded-full bg-black/50 px-2 py-1 text-xs text-white backdrop-blur-sm',
+  base: 'text-accent absolute right-2 top-2 rounded-full px-2 py-1 text-xs backdrop-blur-sm',
 });
 
 const cardTitle = tv({
-  base: 'truncate text-sm font-bold text-[var(--color-text-primary)]',
+  base: 'text-accent-foreground truncate text-sm font-bold',
 });
 
 const cardSubtitle = tv({
-  base: 'flex items-center justify-between text-xs text-[var(--color-text-secondary)]',
+  base: 'text-accent-foreground flex items-center justify-between text-xs',
 });
 
 const cardTag = tv({
   // lavender-glass chip
-  base: 'rounded-full bg-[var(--color-primary-glass)] px-2 py-1 text-xs font-medium text-[var(--color-text-primary)] ring-1 ring-[var(--color-primary-glass)] backdrop-blur-sm',
+  base: 'text-accent ring-primary-glass bg-primary-glass rounded-full px-2 py-1 text-xs font-medium ring-1 backdrop-blur-sm',
 });
 
 const cardAttributes = tv({ base: 'mt-2 flex flex-wrap gap-1' });
 
 const cardAttribute = tv({
-  base: 'rounded-full bg-[var(--color-primary-glass)] px-2 py-1 text-xs text-[var(--color-text-secondary)] ring-1 ring-[var(--color-primary-glass)] backdrop-blur-sm',
+  base: 'text-accent ring-primary bg-primary-glass rounded-full px-2 py-1 text-xs ring-1 backdrop-blur-sm',
 });
 
 const cardDescription = tv({
-  base: 'mt-2 line-clamp-2 text-xs text-[var(--color-text-secondary)]',
+  base: 'text-accent-foreground mt-2 line-clamp-2 text-xs',
 });
 
 /* ----- Types ----- */
