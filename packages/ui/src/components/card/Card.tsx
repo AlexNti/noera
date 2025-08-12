@@ -99,7 +99,7 @@ const cardImageImg = tv({
 });
 
 const cardBadge = tv({
-  base: 'text-accent absolute right-2 top-2 rounded-full px-2 py-1 text-xs backdrop-blur-sm',
+  base: 'text-accent absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-semibold backdrop-blur-sm',
 });
 
 const cardTitle = tv({
@@ -112,13 +112,13 @@ const cardSubtitle = tv({
 
 const cardTag = tv({
   // lavender-glass chip
-  base: 'text-accent ring-primary-glass bg-primary-glass rounded-full px-2 py-1 text-xs font-medium ring-1 backdrop-blur-sm',
+  base: 'text-accent ring-primary-glass bg-primary-glass rounded-full px-2 py-1 text-xs font-semibold ring-1 backdrop-blur-sm',
 });
 
 const cardAttributes = tv({ base: 'mt-2 flex flex-wrap gap-1' });
 
 const cardAttribute = tv({
-  base: 'text-accent ring-primary bg-primary-glass rounded-full px-2 py-1 text-xs ring-1 backdrop-blur-sm',
+  base: 'text-accent ring-primary-glass bg-primary-glass-strong rounded-full px-2 py-1 text-xs font-bold ring-1 backdrop-blur-sm',
 });
 
 const cardDescription = tv({
