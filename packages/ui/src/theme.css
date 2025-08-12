@@ -64,6 +64,11 @@
   --color-secondary: var(--color-periwinkle-300);
   --color-complement: var(--color-pink-lavender-300);
 
+  --color-dark-background-primary: var(--color-lavender-500);
+  --color-dark-background-secondary: var(--color-periwinkle-500);
+  --color-dark-background-complement: var(--color-pink-lavender-700);
+
+
 
   /* Text roles */
   --color-fg: oklch(30% 0.02 0);
@@ -90,6 +95,8 @@
   /* === Glass (translucent fills) — still colors so you get bg-success-glass etc. === */
   --color-primary-glass: oklch(82% 0.1 280 / 0.42);
   --color-secondary-glass: oklch(84% 0.09 250 / 0.3);
+  --color-primary-glass-strong:   oklch(72% 0.10 280 / 0.56);
+  --color-secondary-glass-strong: oklch(74% 0.09 250 / 0.48);
   --color-success-glass: oklch(82% 0.09 200 / 0.28);
   --color-warning-glass: oklch(86% 0.08 100 / 0.28);
   --color-danger-glass: oklch(72% 0.15 350 / 0.28);
