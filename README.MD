@@ -163,3 +163,31 @@ This packages are helping keep the same version of deps everywhere
 Explore typedoc to include on our functions or components.
 Explore commitlint
 Explore husky and lint-staged
+
+To check if the style of tailwnd are inside
+grep -n "bg-lavender-300\|lavender-300" apps/fe/.next/static/css/\*.css
+grep -o "bg-lavender-[0-9]\+" apps/fe/.next/static/css/\*.css | sort -u
+/_ Dark mode remap (keeps the same token names, adjusts values) _/
+{{/* @media (prefers-color-scheme: dark) {
+  :root { */}}
+{{/* --color-surface: oklch(20% 0.02 270);
+    --color-surface-muted: oklch(24% 0.02 270);
+    --color-surface-inset: oklch(28% 0.02 270); */}}
+
+    {{/* --color-fg: oklch(96% 0.01 270);
+    --color-fg-muted: oklch(82% 0.01 270);
+    --color-fg-inverse: oklch(12% 0 0); */}}
+
+    {{/* --color-border: oklch(35% 0.01 270);
+    --color-border-strong: oklch(42% 0.01 270); */}}
+
+    {{/* --color-accent: oklch(70% 0.12 280);
+    --color-accent-foreground: oklch(16% 0.02 270); */}}
+
+    /* stronger shadow feel on dark */
+    {{/* --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.6), 0 1px 1px oklch(0% 0 0 / 0.6);
+    --shadow-2: 0 4px 12px oklch(0% 0 0 / 0.6);
+    --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.6); */}}
+
+{{/* }
+} */}}
