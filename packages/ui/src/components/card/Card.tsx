@@ -15,7 +15,6 @@ export const cardVariants = tv({
     appearance: {
       glass: [
         // frosted base + support-fallback
-        'bg-white/10 dark:bg-white/5',
         'backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/10',
         // themed tint (image layer) – avoids bg-* merge issues
         'bg-blend-overlay [background-image:var(--gradient-primary-glass)]',
