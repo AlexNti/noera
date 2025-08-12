@@ -1,5 +1,6 @@
+import { Card } from './Card';
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Card } from '@noera/ui/card';
 
 const meta = {
   title: 'UI/Card',
@@ -45,7 +46,8 @@ export const Default: Story = {
           <Card.Attribute>Level: 5</Card.Attribute>
         </Card.Attributes>
         <Card.Description>
-          A rare cosmic explorer NFT with extraordinary attributes and stunning visual design.
+          A rare cosmic explorer NFT with extraordinary attributes and stunning visual design. Updated for co-location
+          test!
         </Card.Description>
       </Card.Body>
     </Card>
