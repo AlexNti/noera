@@ -1,11 +1,20 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @import 'tailwindcss';
 
 /* Keep full lavender/periwinkle/pink-lavender scales (even if unused) */
-@source inline("{hover:,focus:,}bg-{lavender,pink-lavender,periwinkle}-{50..700..100}");
-@source inline("{hover:,focus:,}text-{lavender,pink-lavender,periwinkle}-{50..700..100}");
-@source inline("{hover:,focus:,}border-{lavender,pink-lavender,periwinkle}-{50..700..100}");
-@source inline("{focus:,}ring-{lavender,pink-lavender,periwinkle}-{50..700..100}");
+@source inline("bg-lavender-50 bg-lavender-100 bg-lavender-200 bg-lavender-300 bg-lavender-400 bg-lavender-500 bg-lavender-600 bg-lavender-700");
+@source inline("bg-pink-lavender-50 bg-pink-lavender-100 bg-pink-lavender-200 bg-pink-lavender-300 bg-pink-lavender-400 bg-pink-lavender-500 bg-pink-lavender-600 bg-pink-lavender-700");
+@source inline("bg-periwinkle-50 bg-periwinkle-100 bg-periwinkle-200 bg-periwinkle-300 bg-periwinkle-400 bg-periwinkle-500 bg-periwinkle-600 bg-periwinkle-700");
+@source inline("text-lavender-50 text-lavender-100 text-lavender-200 text-lavender-300 text-lavender-400 text-lavender-500 text-lavender-600 text-lavender-700");
+@source inline("text-pink-lavender-50 text-pink-lavender-100 text-pink-lavender-200 text-pink-lavender-300 text-pink-lavender-400 text-pink-lavender-500 text-pink-lavender-600 text-pink-lavender-700");
+@source inline("text-periwinkle-50 text-periwinkle-100 text-periwinkle-200 text-periwinkle-300 text-periwinkle-400 text-periwinkle-500 text-periwinkle-600 text-periwinkle-700");
+@source inline("border-lavender-50 border-lavender-100 border-lavender-200 border-lavender-300 border-lavender-400 border-lavender-500 border-lavender-600 border-lavender-700");
+@source inline("border-pink-lavender-50 border-pink-lavender-100 border-pink-lavender-200 border-pink-lavender-300 border-pink-lavender-400 border-pink-lavender-500 border-pink-lavender-600 border-pink-lavender-700");
+@source inline("border-periwinkle-50 border-periwinkle-100 border-periwinkle-200 border-periwinkle-300 border-periwinkle-400 border-periwinkle-500 border-periwinkle-600 border-periwinkle-700");
+@source inline("ring-lavender-50 ring-lavender-100 ring-lavender-200 ring-lavender-300 ring-lavender-400 ring-lavender-500 ring-lavender-600 ring-lavender-700");
+@source inline("ring-pink-lavender-50 ring-pink-lavender-100 ring-pink-lavender-200 ring-pink-lavender-300 ring-pink-lavender-400 ring-pink-lavender-500 ring-pink-lavender-600 ring-pink-lavender-700");
+@source inline("ring-periwinkle-50 ring-periwinkle-100 ring-periwinkle-200 ring-periwinkle-300 ring-periwinkle-400 ring-periwinkle-500 ring-periwinkle-600 ring-periwinkle-700");
 
 /* Ensure brand/role + feedback colors are kept */
 @source inline("{hover:,focus:,}bg-{primary,secondary,success,warning,danger,surface,surface-muted,surface-inset,accent}");
@@ -24,12 +33,16 @@
 @source inline("backdrop-blur-glass");
 
 /* Gradients (custom arbitrary values must be listed explicitly) */
-@source inline("bg-[var(--gradient-primary)] bg-[var(--gradient-secondary)] bg-[var(--gradient-primary-glass)] bg-[var(--gradient-secondary-glass)]");
+@source inline("bg-[image:var(--gradient-primary)] bg-[image:var(--gradient-secondary)] bg-[image:var(--gradient-primary-glass)] bg-[image:var(--gradient-secondary-glass)]");
 
 /* Tailwind v4 theme tokens */
 @theme {
   /* === Fonts === */
-  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-family-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --default-font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-family: var(--font-space-grotesk), system-ui, sans-serif;
 
   /* === Core hues (scales) → now color-* so you get bg-lavender-300, etc. === */
   --color-lavender-50: oklch(95% 0.03 280);
@@ -68,8 +81,6 @@
   --color-dark-background-secondary: var(--color-periwinkle-500);
   --color-dark-background-complement: var(--color-pink-lavender-700);
 
-
-
   /* Text roles */
   --color-fg: oklch(30% 0.02 0);
   --color-fg-muted: oklch(50% 0.02 0);
@@ -86,7 +97,6 @@
   --color-accent: var(--color-lavender-50);
   --color-accent-foreground: hsl(240, 40%, 12%);
 
-
   /* === Feedback (lavender-cohesive) === */
   --color-success: oklch(82% 0.09 200); /* teal-lavender */
   --color-warning: oklch(86% 0.08 100); /* soft gold */
@@ -95,7 +105,7 @@
   /* === Glass (translucent fills) — still colors so you get bg-success-glass etc. === */
   --color-primary-glass: oklch(82% 0.1 280 / 0.42);
   --color-secondary-glass: oklch(84% 0.09 250 / 0.3);
-  --color-primary-glass-strong:   oklch(72% 0.10 280 / 0.56);
+  --color-primary-glass-strong: oklch(72% 0.1 280 / 0.56);
   --color-secondary-glass-strong: oklch(74% 0.09 250 / 0.48);
   --color-success-glass: oklch(82% 0.09 200 / 0.28);
   --color-warning-glass: oklch(86% 0.08 100 / 0.28);
@@ -130,39 +140,34 @@
   --radius-full: 9999px;
 
   /* === Blur (v4 key: --blur-*) → backdrop-blur-glass === */
-  --blur-glass: 12px /* === States (custom; use via arbitrary values) === */ --state-hover: 0.06;
+  --blur-glass: 12px;
+
+  /* === States (custom; use via arbitrary values) === */
+  --state-hover: 0.06;
   --state-active: 0.1;
   --state-disabled: 0.45;
 }
 
-/* Dark mode remap (keeps the same token names, adjusts values) */
-{{/* @media (prefers-color-scheme: dark) {
-  :root { */}}
-    {{/* --color-surface: oklch(20% 0.02 270);
-    --color-surface-muted: oklch(24% 0.02 270);
-    --color-surface-inset: oklch(28% 0.02 270); */}}
-
-    {{/* --color-fg: oklch(96% 0.01 270);
-    --color-fg-muted: oklch(82% 0.01 270);
-    --color-fg-inverse: oklch(12% 0 0); */}}
-
-    {{/* --color-border: oklch(35% 0.01 270);
-    --color-border-strong: oklch(42% 0.01 270); */}}
-
-    {{/* --color-accent: oklch(70% 0.12 280);
-    --color-accent-foreground: oklch(16% 0.02 270); */}}
-
-    /* stronger shadow feel on dark */
-    {{/* --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.6), 0 1px 1px oklch(0% 0 0 / 0.6);
-    --shadow-2: 0 4px 12px oklch(0% 0 0 / 0.6);
-    --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.6); */}}
-  {{/* }
-} */}}
-
-/* Global font & focus */
 html,
-body {
-  font-family: var(--font-sans);
+body,
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+button,
+input,
+textarea,
+label {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+}
+
+* {
   -webkit-font-smoothing: antialiased;
 }
 :where(a, button, input, textarea, [role='button']) {
