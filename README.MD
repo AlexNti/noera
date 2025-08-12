@@ -1,3 +1,161 @@
+# Escrow Monorepo
+
+A Turborepo-powered monorepo for web3 escrow applications with co-located Storybook stories and optimized caching.
+
+## 📁 Project Structure
+
+```
+escrow/
+├── apps/
+│   ├── fe/                    # Next.js frontend application
+│   ├── storybook/            # Storybook app (co-located stories)
+│   └── mobile/               # Mobile application
+├── packages/
+│   ├── ui/                   # Design system with co-located stories
+│   │   └── src/components/card/
+│   │       ├── Card.tsx      # Component
+│   │       └── Card.stories.tsx  # Co-located story
+│   ├── contracts/            # Smart contracts (Hardhat)
+│   └── eslint-config/        # Shared ESLint configuration
+└── turbo.json               # Turborepo configuration
+```
+
+## 🚀 Build Process & Caching Strategy
+
+This project uses **Turborepo** with **optimized caching** for different build scenarios:
+
+### Development Commands
+
+```bash
+# Start all development servers
+turbo dev
+
+# Start specific applications
+pnpm storybook          # Storybook dev server (localhost:6006)
+cd apps/fe && pnpm dev  # Frontend dev server
+```
+
+### Production Builds
+
+```bash
+# Build production applications (excludes stories from cache)
+turbo build
+
+# Build Storybook documentation (includes stories in cache)
+turbo build:storybook
+
+# Build everything
+turbo build:storybook build
+```
+
+### 🎯 Caching Optimization
+
+Our build process uses **smart caching** to optimize build times:
+
+#### `turbo build` (Production Apps)
+
+- **Excludes**: `**/*.stories.{tsx,jsx,mdx}` from input hash
+- **Result**: Story changes don't trigger unnecessary app rebuilds
+- **Runs**: Frontend, UI library, contracts (packages with `build` scripts)
+
+#### `turbo build:storybook` (Documentation)
+
+- **Includes**: Story files in input hash
+- **Result**: Story changes trigger Storybook rebuilds
+- **Runs**: Only Storybook (packages with `build:storybook` scripts)
+
+### 📖 Story Co-location
+
+Stories live **next to their components** for better maintainability:
+
+```
+packages/ui/src/components/card/
+├── Card.tsx           # Component implementation
+└── Card.stories.tsx   # Storybook stories (co-located)
+```
+
+**Benefits:**
+
+- ✅ Stories stay in sync with components
+- ✅ Easier to maintain and update
+- ✅ Optimal caching (stories only affect Storybook builds)
+- ✅ Better developer experience
+
+### 🏗️ Build Configuration
+
+#### Root `turbo.json`
+
+```json
+{
+  "tasks": {
+    "build": {
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.stories.{tsx,jsx,mdx}"],
+      "outputs": [".next/**", "dist/**"]
+    },
+    "build:storybook": {}
+  }
+}
+```
+
+#### Package-specific `apps/storybook/turbo.json`
+
+```json
+{
+  "extends": ["//"],
+  "tasks": {
+    "build:storybook": {
+      "dependsOn": ["^build:storybook"],
+      "outputs": ["storybook-static/**"]
+    }
+  }
+}
+```
+
+### 📦 Package Scripts
+
+Each package has targeted scripts:
+
+```json
+// apps/storybook/package.json
+{
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build:storybook": "storybook build"
+  }
+}
+
+// packages/ui/package.json
+{
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  }
+}
+```
+
+## 🛠️ Development Workflow
+
+1. **Start development**: `turbo dev`
+2. **Edit components**: Changes auto-reload in Storybook
+3. **Edit stories**: Only Storybook rebuilds (optimal caching)
+4. **Build for production**: `turbo build` (excludes stories)
+5. **Deploy Storybook**: `turbo build:storybook` (includes stories)
+
+## 📚 Tools & Dependencies
+
+### Monorepo Management
+
+- **Turborepo**: Build system and caching
+- **pnpm**: Package manager with workspace support
+
+### UI Development
+
+- **Storybook**: Component development and documentation
+- **Tailwind CSS v4**: Utility-first CSS framework
+- **tailwind-variants**: Component variant management
+
+### Recommended Tools to Explore
+
 Check https://www.npmjs.com/package/syncpack or https://www.npmjs.com/package/@manypkg/cli or https://www.npmjs.com/package/sherif
 
 This packages are helping keep the same version of deps everywhere
