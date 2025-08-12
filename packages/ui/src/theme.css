@@ -62,6 +62,8 @@
   /* === Brand / semantic colors (use these in components) === */
   --color-primary: var(--color-lavender-300);
   --color-secondary: var(--color-periwinkle-300);
+  --color-complement: var(--color-pink-lavender-300);
+
 
   /* Text roles */
   --color-fg: oklch(30% 0.02 0);
@@ -76,8 +78,9 @@
   --color-border-strong: oklch(80% 0.01 0);
 
   /* Focus ring (so `ring-accent` etc. work) */
-  --color-accent: var(--color-lavender-300);
-  --color-accent-foreground: oklch(28% 0.02 0);
+  --color-accent: var(--color-lavender-50);
+  --color-accent-foreground: hsl(240, 40%, 12%);
+
 
   /* === Feedback (lavender-cohesive) === */
   --color-success: oklch(82% 0.09 200); /* teal-lavender */
@@ -126,28 +129,28 @@
 }
 
 /* Dark mode remap (keeps the same token names, adjusts values) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-surface: oklch(20% 0.02 270);
+{{/* @media (prefers-color-scheme: dark) {
+  :root { */}}
+    {{/* --color-surface: oklch(20% 0.02 270);
     --color-surface-muted: oklch(24% 0.02 270);
-    --color-surface-inset: oklch(28% 0.02 270);
+    --color-surface-inset: oklch(28% 0.02 270); */}}
 
-    --color-fg: oklch(96% 0.01 270);
+    {{/* --color-fg: oklch(96% 0.01 270);
     --color-fg-muted: oklch(82% 0.01 270);
-    --color-fg-inverse: oklch(12% 0 0);
+    --color-fg-inverse: oklch(12% 0 0); */}}
 
-    --color-border: oklch(35% 0.01 270);
-    --color-border-strong: oklch(42% 0.01 270);
+    {{/* --color-border: oklch(35% 0.01 270);
+    --color-border-strong: oklch(42% 0.01 270); */}}
 
-    --color-accent: oklch(70% 0.12 280);
-    --color-accent-foreground: oklch(16% 0.02 270);
+    {{/* --color-accent: oklch(70% 0.12 280);
+    --color-accent-foreground: oklch(16% 0.02 270); */}}
 
     /* stronger shadow feel on dark */
-    --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.6), 0 1px 1px oklch(0% 0 0 / 0.6);
+    {{/* --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.6), 0 1px 1px oklch(0% 0 0 / 0.6);
     --shadow-2: 0 4px 12px oklch(0% 0 0 / 0.6);
-    --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.6);
-  }
-}
+    --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.6); */}}
+  {{/* }
+} */}}
 
 /* Global font & focus */
 html,
