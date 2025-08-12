@@ -1,143 +1,166 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
 @import 'tailwindcss';
 
-@source inline("{hover:,focus:,}bg-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
-@source inline("{hover:,focus:,}text-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
-@source inline("{hover:,focus:,}border-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+/* Keep full lavender/periwinkle/pink-lavender scales (even if unused) */
+@source inline("{hover:,focus:,}bg-{lavender,pink-lavender,periwinkle}-{50..700..100}");
+@source inline("{hover:,focus:,}text-{lavender,pink-lavender,periwinkle}-{50..700..100}");
+@source inline("{hover:,focus:,}border-{lavender,pink-lavender,periwinkle}-{50..700..100}");
+@source inline("{focus:,}ring-{lavender,pink-lavender,periwinkle}-{50..700..100}");
 
-@source inline("{hover:,focus:,}bg-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
-@source inline("{hover:,focus:,}text-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
-@source inline("{hover:,focus:,}border-glass-pastel-{blue,pink,purple,green,yellow,orange,red,teal,lavender,peach}");
+/* Ensure brand/role + feedback colors are kept */
+@source inline("{hover:,focus:,}bg-{primary,secondary,success,warning,danger,surface,surface-muted,surface-inset,accent}");
+@source inline("{hover:,focus:,}text-{fg,fg-muted,fg-inverse,primary,secondary,success,warning,danger,accent-foreground}");
+@source inline("{hover:,focus:,}border-{border,border-strong,primary,secondary,success,warning,danger,accent}");
+@source inline("{focus:,}ring-{accent,primary,secondary,success,warning,danger}");
 
-@source inline("{hover:,focus:,}bg-{primary,secondary,accent,success,warning,error,info,neutral}");
-@source inline("{hover:,focus:,}text-{primary,secondary,accent,success,warning,error,info,neutral}");
-@source inline("{hover:,focus:,}border-{primary,secondary,accent,success,warning,error,info,neutral}");
+/* Glass variants */
+@source inline("{hover:,focus:,}bg-{primary-glass,secondary-glass,success-glass,warning-glass,danger-glass}");
+@source inline("{hover:,focus:,}text-{primary-glass,secondary-glass,success-glass,warning-glass,danger-glass}");
+@source inline("{hover:,focus:,}border-{primary-glass,secondary-glass,success-glass,warning-glass,danger-glass}");
 
-@source inline("{hover:,focus:,}bg-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
-@source inline("{hover:,focus:,}text-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
-@source inline("{hover:,focus:,}border-{primary,secondary,accent,success,warning,error,info,neutral}-glass");
+/* Shadows / radii / blur (so utilities exist even if not referenced) */
+@source inline("shadow-{1,2,3}");
+@source inline("rounded-{sm,md,lg,full}");
+@source inline("backdrop-blur-glass");
 
-@source inline("border-[var(--color-{primary,secondary,success,warning,error,info,neutral}-glass)]");
-@source inline("shadow-[0_8px_32px_var(--color-{primary,secondary,success,warning,error,info,neutral}-glass)]");
-@source inline("ring-[var(--color-{primary,secondary,success,warning,error,info,neutral}-glass)]");
+/* Gradients (custom arbitrary values must be listed explicitly) */
+@source inline("bg-[var(--gradient-primary)] bg-[var(--gradient-secondary)] bg-[var(--gradient-primary-glass)] bg-[var(--gradient-secondary-glass)]");
 
+/* Tailwind v4 theme tokens */
 @theme {
-  --font-family-satoshi: 'Satoshi', sans-serif;
+  /* === Fonts === */
+  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
 
-  --color-pastel-blue: oklch(85% 0.08 240);
-  --color-pastel-pink: oklch(85% 0.08 340);
-  --color-pastel-purple: oklch(85% 0.08 280);
-  --color-pastel-green: oklch(85% 0.08 140);
-  --color-pastel-yellow: oklch(85% 0.08 80);
-  --color-pastel-orange: oklch(85% 0.08 60);
-  --color-pastel-red: oklch(85% 0.08 20);
-  --color-pastel-teal: oklch(85% 0.08 180);
-  --color-pastel-lavender: oklch(85% 0.08 300);
-  --color-pastel-peach: oklch(85% 0.08 40);
+  /* === Core hues (scales) → now color-* so you get bg-lavender-300, etc. === */
+  --color-lavender-50: oklch(95% 0.03 280);
+  --color-lavender-100: oklch(90% 0.05 280);
+  --color-lavender-200: oklch(85% 0.08 280);
+  --color-lavender-300: oklch(82% 0.1 280);
+  --color-lavender-400: oklch(78% 0.11 280);
+  --color-lavender-500: oklch(74% 0.12 280);
+  --color-lavender-600: oklch(70% 0.12 280);
+  --color-lavender-700: oklch(65% 0.12 280);
 
-  --color-glass-pastel-blue: oklch(88% 0.09 240 / 0.3);
-  --color-glass-pastel-pink: oklch(88% 0.1 340 / 0.3);
-  --color-glass-pastel-purple: oklch(88% 0.08 280 / 0.3);
-  --color-glass-pastel-green: oklch(88% 0.1 140 / 0.3);
-  --color-glass-pastel-yellow: oklch(90% 0.13 95 / 0.3);
-  --color-glass-pastel-orange: oklch(89% 0.12 60 / 0.3);
-  --color-glass-pastel-red: oklch(87% 0.12 25 / 0.3);
-  --color-glass-pastel-teal: oklch(88% 0.09 180 / 0.3);
-  --color-glass-pastel-lavender: oklch(89% 0.08 300 / 0.3);
-  --color-glass-pastel-peach: oklch(89% 0.11 40 / 0.3);
+  --color-pink-lavender-50: oklch(96% 0.03 320);
+  --color-pink-lavender-100: oklch(92% 0.05 320);
+  --color-pink-lavender-200: oklch(88% 0.08 320);
+  --color-pink-lavender-300: oklch(86% 0.1 320);
+  --color-pink-lavender-400: oklch(82% 0.11 320);
+  --color-pink-lavender-500: oklch(78% 0.12 320);
+  --color-pink-lavender-600: oklch(74% 0.12 320);
+  --color-pink-lavender-700: oklch(70% 0.12 320);
 
-  --gradient-pastel-sunset: linear-gradient(135deg, oklch(80% 0.15 340) 0%, oklch(85% 0.12 30) 100%);
-  --gradient-pastel-ocean: linear-gradient(135deg, oklch(80% 0.12 240) 0%, oklch(85% 0.1 200) 100%);
-  --gradient-pastel-lavender: linear-gradient(135deg, oklch(80% 0.12 280) 0%, oklch(85% 0.1 320) 100%);
-  --gradient-pastel-spring: linear-gradient(135deg, oklch(80% 0.12 140) 0%, oklch(85% 0.1 120) 100%);
-  --gradient-pastel-cotton: linear-gradient(135deg, oklch(80% 0.12 40) 0%, oklch(85% 0.1 60) 100%);
+  --color-periwinkle-50: oklch(95% 0.03 250);
+  --color-periwinkle-100: oklch(90% 0.05 250);
+  --color-periwinkle-200: oklch(87% 0.07 250);
+  --color-periwinkle-300: oklch(84% 0.09 250);
+  --color-periwinkle-400: oklch(80% 0.1 250);
+  --color-periwinkle-500: oklch(76% 0.11 250);
+  --color-periwinkle-600: oklch(72% 0.11 250);
+  --color-periwinkle-700: oklch(68% 0.11 250);
 
-  --gradient-glass-pastel-sunset: linear-gradient(135deg, oklch(85% 0.04 340 / 0.1) 0%, oklch(85% 0.04 60 / 0.1) 100%);
-  --gradient-glass-pastel-ocean: linear-gradient(135deg, oklch(85% 0.04 240 / 0.1) 0%, oklch(85% 0.04 180 / 0.1) 100%);
-  --gradient-glass-pastel-lavender: linear-gradient(
+  /* === Brand / semantic colors (use these in components) === */
+  --color-primary: var(--color-lavender-300);
+  --color-secondary: var(--color-periwinkle-300);
+
+  /* Text roles */
+  --color-fg: oklch(30% 0.02 0);
+  --color-fg-muted: oklch(50% 0.02 0);
+  --color-fg-inverse: oklch(95% 0.01 0);
+
+  /* Surfaces & borders */
+  --color-surface: oklch(99% 0 0);
+  --color-surface-muted: oklch(97% 0 0);
+  --color-surface-inset: oklch(94% 0 0);
+  --color-border: oklch(88% 0.01 0);
+  --color-border-strong: oklch(80% 0.01 0);
+
+  /* Focus ring (so `ring-accent` etc. work) */
+  --color-accent: var(--color-lavender-300);
+  --color-accent-foreground: oklch(28% 0.02 0);
+
+  /* === Feedback (lavender-cohesive) === */
+  --color-success: oklch(82% 0.09 200); /* teal-lavender */
+  --color-warning: oklch(86% 0.08 100); /* soft gold */
+  --color-danger: oklch(72% 0.15 350); /* magenta-red */
+
+  /* === Glass (translucent fills) — still colors so you get bg-success-glass etc. === */
+  --color-primary-glass: oklch(82% 0.1 280 / 0.42);
+  --color-secondary-glass: oklch(84% 0.09 250 / 0.3);
+  --color-success-glass: oklch(82% 0.09 200 / 0.28);
+  --color-warning-glass: oklch(86% 0.08 100 / 0.28);
+  --color-danger-glass: oklch(72% 0.15 350 / 0.28);
+
+  /* Gradients (custom; use via bg-[var(--gradient-…)] ) */
+  --gradient-primary: linear-gradient(
     135deg,
-    oklch(85% 0.04 280 / 0.1) 0%,
-    oklch(85% 0.04 300 / 0.1) 100%
+    var(--color-lavender-300) 0%,
+    var(--color-pink-lavender-300) 35%,
+    var(--color-periwinkle-300) 70%,
+    var(--color-lavender-300) 100%
   );
-  --gradient-glass-pastel-spring: linear-gradient(135deg, oklch(85% 0.04 140 / 0.1) 0%, oklch(85% 0.04 80 / 0.1) 100%);
-  --gradient-glass-pastel-cotton: linear-gradient(135deg, oklch(85% 0.04 20 / 0.1) 0%, oklch(85% 0.04 40 / 0.1) 100%);
+  --gradient-secondary: linear-gradient(
+    135deg,
+    var(--color-periwinkle-300) 0%,
+    var(--color-lavender-300) 50%,
+    var(--color-pink-lavender-300) 100%
+  );
+  --gradient-primary-glass: linear-gradient(135deg, oklch(82% 0.1 280 / 0.12) 0%, oklch(86% 0.1 320 / 0.1) 100%);
+  --gradient-secondary-glass: linear-gradient(135deg, oklch(84% 0.09 250 / 0.12) 0%, oklch(82% 0.1 280 / 0.1) 100%);
 
-  --color-text-pastel-dark: oklch(30% 0.02 0);
-  --color-text-pastel-light: oklch(95% 0.01 0);
-  --color-text-pastel-muted: oklch(50% 0.02 0);
+  /* === Shadows / Elevation (v4 key: --shadow-*) === */
+  --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.12), 0 1px 1px oklch(0% 0 0 / 0.12);
+  --shadow-2: 0 4px 12px oklch(0% 0 0 / 0.12);
+  --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.12);
 
-  --shadow-pastel-soft: 0 4px 16px oklch(0% 0 0 / 0.08);
-  --shadow-pastel-medium: 0 8px 32px oklch(0% 0 0 / 0.12);
-  --shadow-pastel-strong: 0 16px 64px oklch(0% 0 0 / 0.16);
+  /* === Radii (v4 key: --radius-*) → rounded-sm/md/lg/full === */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
 
-  --glow-pastel-blue: 0 0 20px oklch(85% 0.08 240 / 0.4);
-  --glow-pastel-pink: 0 0 20px oklch(85% 0.08 340 / 0.4);
-  --glow-pastel-purple: 0 0 20px oklch(85% 0.08 280 / 0.4);
-  --glow-pastel-green: 0 0 20px oklch(85% 0.08 140 / 0.4);
-  --glow-pastel-yellow: 0 0 20px oklch(85% 0.08 80 / 0.4);
-  --glow-pastel-orange: 0 0 20px oklch(85% 0.08 60 / 0.4);
-  --glow-pastel-red: 0 0 20px oklch(85% 0.08 20 / 0.4);
-  --glow-pastel-teal: 0 0 20px oklch(85% 0.08 180 / 0.4);
-  --glow-pastel-lavender: 0 0 20px oklch(85% 0.08 300 / 0.4);
-  --glow-pastel-peach: 0 0 20px oklch(85% 0.08 40 / 0.4);
+  /* === Blur (v4 key: --blur-*) → backdrop-blur-glass === */
+  --blur-glass: 12px /* === States (custom; use via arbitrary values) === */ --state-hover: 0.06;
+  --state-active: 0.1;
+  --state-disabled: 0.45;
+}
 
-  --blur-pastel-sm: 8px;
-  --blur-pastel-md: 16px;
-  --blur-pastel-lg: 24px;
-  --blur-pastel-xl: 32px;
+/* Dark mode remap (keeps the same token names, adjusts values) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: oklch(20% 0.02 270);
+    --color-surface-muted: oklch(24% 0.02 270);
+    --color-surface-inset: oklch(28% 0.02 270);
 
-  --transition-pastel-fast: 200ms ease-out;
-  --transition-pastel-normal: 300ms ease-out;
-  --transition-pastel-slow: 400ms ease-out;
+    --color-fg: oklch(96% 0.01 270);
+    --color-fg-muted: oklch(82% 0.01 270);
+    --color-fg-inverse: oklch(12% 0 0);
 
-  --color-primary: var(--color-pastel-blue);
-  --color-secondary: var(--color-pastel-purple);
-  --color-accent: var(--color-pastel-pink);
-  --color-success: var(--color-pastel-green);
-  --color-warning: var(--color-pastel-yellow);
-  --color-error: var(--color-pastel-red);
-  --color-info: var(--color-pastel-teal);
-  --color-neutral: var(--color-pastel-lavender);
+    --color-border: oklch(35% 0.01 270);
+    --color-border-strong: oklch(42% 0.01 270);
 
-  --color-primary-glass: var(--color-glass-pastel-blue);
-  --color-secondary-glass: var(--color-glass-pastel-purple);
-  --color-accent-glass: var(--color-glass-pastel-pink);
-  --color-success-glass: var(--color-glass-pastel-green);
-  --color-warning-glass: var(--color-glass-pastel-yellow);
-  --color-error-glass: var(--color-glass-pastel-red);
-  --color-info-glass: var(--color-glass-pastel-teal);
-  --color-neutral-glass: var(--color-glass-pastel-lavender);
+    --color-accent: oklch(70% 0.12 280);
+    --color-accent-foreground: oklch(16% 0.02 270);
 
-  --gradient-primary: var(--gradient-pastel-ocean);
-  --gradient-secondary: var(--gradient-pastel-lavender);
-  --gradient-accent: var(--gradient-pastel-sunset);
-  --gradient-success: var(--gradient-pastel-spring);
-  --gradient-warning: var(--gradient-pastel-cotton);
-  --gradient-info: linear-gradient(135deg, oklch(75% 0.15 200) 0%, oklch(85% 0.12 220) 100%);
-  --gradient-neutral: linear-gradient(135deg, oklch(70% 0.05 0) 0%, oklch(80% 0.03 0) 100%);
+    /* stronger shadow feel on dark */
+    --shadow-1: 0 1px 2px oklch(0% 0 0 / 0.6), 0 1px 1px oklch(0% 0 0 / 0.6);
+    --shadow-2: 0 4px 12px oklch(0% 0 0 / 0.6);
+    --shadow-3: 0 8px 32px oklch(0% 0 0 / 0.6);
+  }
+}
 
-  --gradient-primary-glass: var(--gradient-glass-pastel-ocean);
-  --gradient-secondary-glass: var(--gradient-glass-pastel-lavender);
-  --gradient-accent-glass: var(--gradient-glass-pastel-sunset);
-  --gradient-success-glass: var(--gradient-glass-pastel-spring);
-  --gradient-warning-glass: var(--gradient-glass-pastel-cotton);
-  --gradient-info-glass: linear-gradient(135deg, oklch(75% 0.08 200 / 0.15) 0%, oklch(85% 0.06 220 / 0.1) 100%);
-  --gradient-neutral-glass: linear-gradient(135deg, oklch(70% 0.02 0 / 0.12) 0%, oklch(80% 0.01 0 / 0.08) 100%);
-
-  --color-text-primary: var(--color-text-pastel-dark);
-  --color-text-secondary: var(--color-text-pastel-muted);
-  --color-text-inverse: var(--color-text-pastel-light);
-
-  --shadow-primary: var(--shadow-pastel-soft);
-  --shadow-secondary: var(--shadow-pastel-medium);
-  --shadow-elevated: var(--shadow-pastel-strong);
-
-  --glow-primary: var(--glow-pastel-blue);
-  --glow-secondary: var(--glow-pastel-purple);
-  --glow-accent: var(--glow-pastel-pink);
-  --glow-success: var(--glow-pastel-green);
-  --glow-warning: var(--glow-pastel-yellow);
-  --glow-error: var(--glow-pastel-red);
-  --glow-info: var(--glow-pastel-teal);
-  --glow-neutral: var(--glow-pastel-lavender);
+/* Global font & focus */
+html,
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+:where(a, button, input, textarea, [role='button']) {
+  outline: none;
+}
+:where(a, button, input, textarea, [role='button']):focus-visible {
+  /* Tailwind ring utilities will use your --color-* tokens, e.g. ring-accent */
+  box-shadow:
+    0 0 0 2px oklch(100% 0 0 / 1),
+    0 0 0 4px var(--color-accent);
 }

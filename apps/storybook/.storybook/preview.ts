@@ -17,14 +17,12 @@ const preview: Preview = {
     },
     backgrounds: {
       options: {
-        dark: { name: 'Dark', value: '#333' },
-        glassLight: { name: 'glassLight', value: 'var(--gradient-pastel-sunset)' },
-        maroon: { name: 'Maroon', value: '#400' },
+        primary: { name: 'primary', value: 'var(--gradient-primary)' },
       },
     },
   },
   initialGlobals: {
-    backgrounds: { value: 'glassLight' },
+    backgrounds: { value: 'primary' },
   },
 };
 
