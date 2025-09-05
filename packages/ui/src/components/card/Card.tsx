@@ -15,16 +15,15 @@ export const cardVariants = tv({
     appearance: {
       glass: [
         // true glassmorphism base
-        'backdrop-blur-xl backdrop-saturate-150',
-        'ring-primary ring-1',
-        'bg-white/10',
+        'backdrop-blur-glass backdrop-saturate-200',
+        'ring-1 ring-primary-glass',
         // inner light reflection (key glassmorphism element)
         'before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:content-[""]',
         'before:bg-gradient-to-br before:from-white/20 before:to-transparent before:opacity-60',
       ],
       solid: [
         // use the primary gradient for solids
-        'bg-[var(--gradient-primary)]',
+        'bg-[image:var(--gradient-primary)]',
         'border-black/10 dark:border-white/10',
         'shadow-[0_8px_24px_rgba(0,0,0,0.08)]',
       ],
@@ -43,7 +42,7 @@ export const cardVariants = tv({
     hover: {
       none: '',
       lift: 'hover:-translate-y-0.5',
-      scale: 'hover:shadow-1 hover:scale-[1.015]',
+      scale: 'hover:scale-[1.015] hover:shadow-1',
       glow: 'hover:shadow-3',
     },
     interactive: {
@@ -76,10 +75,10 @@ export const cardVariants = tv({
 /* ----- Subcomponent builders (TV only) ----- */
 
 const cardHeader = tv({ base: 'mb-3' });
-const cardBody = tv({ base: 'space-y-2' });
+const cardBody = tv({ base: 'space-y-1' });
 
 const cardImage = tv({
-  base: ['ring-primary relative mb-3 overflow-hidden rounded-xl ring-1'],
+  base: ['relative mb-3 overflow-hidden rounded-xl ring-1 ring-primary'],
   variants: {
     aspect: {
       auto: 'h-32',
@@ -99,30 +98,30 @@ const cardImageImg = tv({
 });
 
 const cardBadge = tv({
-  base: 'text-fg-inverse absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-semibold backdrop-blur-sm',
+  base: 'absolute top-2 right-2 rounded-full px-2 py-1 text-xs font-semibold text-fg-inverse backdrop-blur-sm',
 });
 
 const cardTitle = tv({
-  base: 'text-fg-muted truncate text-sm font-bold',
+  base: 'truncate text-sm font-bold text-fg-muted',
 });
 
 const cardSubtitle = tv({
-  base: 'text-fg-muted flex items-center justify-between text-xs',
+  base: 'flex items-center justify-between text-xs text-fg-muted',
 });
 
 const cardTag = tv({
   // lavender-glass chip
-  base: 'text-fg-inverse ring-primary-glass bg-primary-glass rounded-full px-2 py-1 text-xs font-semibold ring-1 backdrop-blur-sm',
+  base: 'rounded-full bg-secondary-glass-strong px-2 py-1 text-xs font-medium text-fg-muted ring-1 ring-primary-glass backdrop-blur-sm',
 });
 
 const cardAttributes = tv({ base: 'mt-2 flex flex-wrap gap-1' });
 
 const cardAttribute = tv({
-  base: 'text-fg-inverse ring-primary-glass bg-primary-glass-strong rounded-full px-2 py-1 text-xs font-bold ring-1 backdrop-blur-sm',
+  base: 'rounded-full bg-secondary-glass-strong px-2 py-1 text-xs font-semibold text-fg-muted ring-1 ring-primary-glass backdrop-blur-sm',
 });
 
 const cardDescription = tv({
-  base: 'text-fg-muted mt-2 line-clamp-2 text-xs',
+  base: 'mt-2 line-clamp-2 text-xs font-medium text-fg-muted',
 });
 
 /* ----- Types ----- */
@@ -201,13 +200,13 @@ const CardImage = React.forwardRef<HTMLImageElement, CardImageProps>(
             <div className='pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(to_bottom,rgba(255,255,255,0.25),transparent_35%)]' />
           </>
         ) : (
-          <div className='flex h-full w-full items-center justify-center bg-[var(--gradient-primary)]'>
+          <div className='flex h-full w-full items-center justify-center bg-[image:var(--gradient-secondary)]'>
             {placeholder || (
               <svg
-                className='h-10 w-10 text-white/90'
-                viewBox='0 0 24 24'
+                className='h-12 w-12 text-white'
                 fill='none'
                 stroke='currentColor'
+                viewBox='0 0 24 24'
               >
                 <path
                   strokeLinecap='round'

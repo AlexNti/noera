@@ -114,10 +114,15 @@
   /* Gradients (custom; use via bg-[var(--gradient-…)] ) */
   --gradient-primary: linear-gradient(
     135deg,
-    var(--color-lavender-300) 0%,
-    var(--color-pink-lavender-300) 35%,
-    var(--color-periwinkle-300) 70%,
-    var(--color-lavender-300) 100%
+    var(--color-lavender-200) 0%,
+    var(--color-pink-lavender-100) 12%,
+    var(--color-periwinkle-200) 25%,
+    var(--color-lavender-300) 37%,
+    var(--color-pink-lavender-200) 50%,
+    var(--color-periwinkle-100) 62%,
+    var(--color-lavender-200) 75%,
+    var(--color-pink-lavender-300) 87%,
+    var(--color-periwinkle-200) 100%
   );
   --gradient-secondary: linear-gradient(
     135deg,
