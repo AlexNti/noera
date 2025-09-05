@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Navigation } from './_components';
 import { Space_Grotesk } from 'next/font/google';
+import { CopilotKit } from '@copilotkit/react-core';
+import '@copilotkit/react-ui/styles.css';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -28,8 +30,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${spaceGrotesk.variable} min-h-screen bg-[image:var(--gradient-primary)]`}>
-        <Navigation />
-        <div className='root'>{children}</div>
+        <CopilotKit publicApiKey='ck_pub_a9a0cde8c3468af576d90d7518013b87'>
+          <Navigation />
+          <div className='root'>{children}</div>
+        </CopilotKit>
       </body>
     </html>
   );
