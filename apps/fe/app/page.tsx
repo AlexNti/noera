@@ -1,4 +1,9 @@
-import { Escrow } from "./_components";
+import { Escrow, EscrowAssistant } from './_components';
 export default function Home() {
-  return <Escrow />;
+  return (
+    <>
+      <Escrow />
+      <EscrowAssistant variant='sidebar' />
+    </>
+  );
 }

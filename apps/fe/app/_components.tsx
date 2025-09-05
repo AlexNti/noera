@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import Link from 'next/link';
 
+// Export the EscrowAssistant component
+export { EscrowAssistant } from './_components/EscrowAssistant';
+
 // Navigation Component
 export const Navigation = () => {
   return (
@@ -189,7 +192,7 @@ export const Escrow = () => {
           </h2>
           <div className='mb-4 rounded border border-green-200 bg-green-50 p-3'>
             <p className='font-semibold text-green-800'>Escrow Contract Address:</p>
-            <p className='break-all text-sm text-gray-700'>{contractAddress}</p>
+            <p className='text-sm break-all text-gray-700'>{contractAddress}</p>
           </div>
           <div className='flex flex-col items-center rounded border border-blue-200 bg-blue-50 p-4'>
             <h3 className='mb-2 flex items-center gap-2 text-lg font-semibold text-blue-800'>
@@ -244,7 +247,7 @@ export const Escrow = () => {
             <input
               id='beneficiary'
               type='text'
-              className='w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'
+              className='w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none'
               placeholder='0x...'
               value={beneficiary}
               onChange={e => setBeneficiary(e.target.value)}
@@ -261,7 +264,7 @@ export const Escrow = () => {
             <input
               id='arbiter'
               type='text'
-              className='w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'
+              className='w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none'
               placeholder='0x...'
               value={arbiter}
               onChange={e => setArbiter(e.target.value)}
