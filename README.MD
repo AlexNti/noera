@@ -163,6 +163,7 @@ This packages are helping keep the same version of deps everywhere
 Explore typedoc to include on our functions or components.
 Explore commitlint
 Explore husky and lint-staged
+look at https://styledictionary.com/info/tokens/
 
 To check if the style of tailwnd are inside
 grep -n "bg-lavender-300\|lavender-300" apps/fe/.next/static/css/\*.css
