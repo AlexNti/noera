@@ -147,7 +147,7 @@ export const Escrow = () => {
         signer,
         arbiter,
         beneficiary,
-        value: ethers.parseEther('1'),
+        value: ethers.parseEther('0.01'),
       });
       setDeployedContract(contract as ethers.Contract);
 
